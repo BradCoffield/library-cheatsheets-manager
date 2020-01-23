@@ -1,7 +1,32 @@
 <template>
   <section>
-    <h2 class="title">Databases List</h2>
-    <b-table :data="data" :columns="columns"></b-table>
+    <h2 class="title">Data List</h2>
+    <b-table
+      :data="data"
+      :columns="columns"
+      :paginated="isPaginated"
+      :per-page="perPage"
+      :current-page.sync="currentPage"
+      :pagination-simple="isPaginationSimple"
+      :pagination-position="paginationPosition"
+      detailed
+      detail-key="id"
+      aria-next-label="Next page"
+      aria-previous-label="Previous page"
+      aria-page-label="Page"
+      aria-current-label="Current page"
+    >
+      <template slot="detail" slot-scope="props">
+        <article class="media">
+          <figure class="media-left">
+            <p>
+              Description: {{ props.row.description }}
+            </p>
+          </figure>
+        
+        </article>
+      </template></b-table
+    >
   </section>
 </template>
 
@@ -13,6 +38,11 @@ export default {
   data() {
     return {
       data: [],
+      isPaginated: true,
+      isPaginationSimple: false,
+      paginationPosition: "bottom",
+      currentPage: 1,
+      perPage: 5,
       columns: [
         {
           field: "key",
@@ -23,12 +53,14 @@ export default {
         {
           field: "name",
           label: "Name",
-          width: "100"
+          width: "100",
+          searchable: true
         },
         {
           field: "url",
           label: "URL",
-          width: "100"
+          width: "100",
+          searchable: true
         },
         { field: "categories", label: "Categories", width: "100" }
       ],
