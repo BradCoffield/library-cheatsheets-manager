@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <img src="../assets/logo-small.png" alt="Firebase logo">
+    <HelloWorld msg="Vue+Firestore CRUD Starter" />
   </div>
 </template>
 
