@@ -1,6 +1,7 @@
 <template>
   <section>
     <h2 class="title">Data List</h2>
+    <!-- <template slot-scope="props"> -->
     <b-table
       :data="data"
       :columns="columns"
@@ -20,17 +21,25 @@
         <article class="media">
           <figure class="media-left">
             <p>Description: {{ props.row.description }}</p>
+            <p>
+              <button
+                class="button is-light"
+                @click.stop="editData(props.row.key)"
+              >
+                Edit
+              </button>
+            </p>
           </figure>
         </article>
       </template></b-table
     >
+    <!-- </template> -->
   </section>
 </template>
 
 <script>
 import firebase from "../Firebase";
-// import router from "../router";
-
+import router from "../router";
 
 export default {
   data() {
@@ -86,21 +95,15 @@ export default {
       });
       this.isLoading = false;
     });
-  } /* ,
+  },
   methods: {
-    details(board) {
-      router.push({ name: "ShowBoard", params: { id: board.key } });
-    },
-    alerrrt(e) {
-      alert(e);
-    },
-    editDatabase (id) {
+    editData(id) {
       router.push({
-        name: 'editDatabase',
+        name: "edit-data",
         params: { id: id }
-      })
-    },
-  } */
+      });
+    }
+  }
 };
 </script>
 

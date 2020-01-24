@@ -4,6 +4,8 @@ import Home from "./views/Home.vue";
 
 import DataList from "./views/DataList.vue";
 import AddData from "./views/AddData.vue";
+import EditData from "./views/EditData.vue";
+
 // import AddDatabase from "./views/AddDatabase.vue";
 // import EditDatabase from "./views/EditDatabase.vue";
 // import EditProxy from "./views/EditProxy.vue";
@@ -35,6 +37,11 @@ export default new Router({
       path: "/add-data",
       name: "add-data",
       component: AddData
+    },
+    {
+      path: "/edit-data",
+      name: "edit-data",
+      component: EditData
     }
     /* ,
     {
