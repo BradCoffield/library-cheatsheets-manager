@@ -19,11 +19,8 @@
       <template slot="detail" slot-scope="props">
         <article class="media">
           <figure class="media-left">
-            <p>
-              Description: {{ props.row.description }}
-            </p>
+            <p>Description: {{ props.row.description }}</p>
           </figure>
-        
         </article>
       </template></b-table
     >
@@ -33,6 +30,7 @@
 <script>
 import firebase from "../Firebase";
 // import router from "../router";
+
 
 export default {
   data() {
