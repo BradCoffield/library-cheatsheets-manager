@@ -7,11 +7,12 @@
       :columns="columns"
       :paginated="isPaginated"
       :per-page="perPage"
+      :opened-detailed="defaultOpenedDetails"
       :current-page.sync="currentPage"
       :pagination-simple="isPaginationSimple"
       :pagination-position="paginationPosition"
       detailed
-      detail-key="id"
+      detail-key="key"
       aria-next-label="Next page"
       aria-previous-label="Previous page"
       aria-page-label="Page"
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       data: [],
+      defaultOpenedDetails: [1],
       isPaginated: true,
       isPaginationSimple: false,
       paginationPosition: "bottom",
@@ -72,8 +74,7 @@ export default {
         { field: "categories", label: "Categories", width: "100" }
       ],
       errors: [],
-      ref: firebase.firestore().collection("generic-test-collection"), //name of the collection in firestore that contains all your real data
-      defaultOpenedDetails: [1]
+      ref: firebase.firestore().collection("generic-test-collection") //name of the collection in firestore that contains all your real data
     };
   },
   created() {
@@ -97,6 +98,9 @@ export default {
     });
   },
   methods: {
+    toggle(row) {
+      this.$refs.table.toggleDetails(row);
+    },
     editData(id) {
       router.push({
         name: "edit-data",
