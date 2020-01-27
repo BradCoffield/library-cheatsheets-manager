@@ -63,27 +63,6 @@ export default {
       paginationPosition: "bottom",
       currentPage: 1,
       perPage: 5,
-      columns: [
-        {
-          field: "key",
-          label: "ID",
-          width: "40",
-          numeric: true
-        },
-        {
-          field: "name",
-          label: "Name",
-          width: "100",
-          searchable: true
-        },
-        {
-          field: "url",
-          label: "URL",
-          width: "100",
-          searchable: true
-        },
-        { field: "categories", label: "Categories", width: "100" }
-      ],
       errors: [],
       ref: firebase.firestore().collection("generic-test-collection") //name of the collection in firestore that contains all your real data
     };

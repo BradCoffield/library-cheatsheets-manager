@@ -92,7 +92,8 @@ export default {
     };
   },
   created() {
-    this.ref.get().then(doc => {
+    console.log(this.key, this.$route.params)
+    this.ref.doc(this.key).get().then(doc => {
       if (doc.exists) {
         this.docData = doc.data();
         return doc.data();
