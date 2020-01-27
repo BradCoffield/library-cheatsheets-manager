@@ -28,10 +28,7 @@
           {{ props.row.url }}
         </b-table-column>
         <b-table-column field="editButton" label="Edit Entry">
-          <button
-            class="button is-info"
-            @click.stop="editData(props.row.key)"
-          >
+          <button class="button is-info" @click.stop="editData(props.row.key)">
             Edit
           </button>
         </b-table-column>
