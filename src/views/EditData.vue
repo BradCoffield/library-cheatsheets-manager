@@ -92,25 +92,25 @@ export default {
     };
   },
   created() {
-    console.log(this.key, this.$route.params)
-    this.ref.doc(this.key).get().then(doc => {
-      if (doc.exists) {
-        this.docData = doc.data();
-        return doc.data();
-      } else {
-        alert("No such document!");
-      }
-    });
+    console.log(this.key, this.$route.params);
+    this.ref
+      .doc(this.key)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          this.docData = doc.data();
+          return doc.data();
+        } else {
+          alert("No such document!");
+        }
+      });
   },
 
   methods: {
     sendUpdate(evt) {
-      this.prepCTforSubmit();
-      this.prepTopicsforSubmit();
-      // alert("successss!");
       evt.preventDefault();
-      this.ref.doc(this.$route.params.id).set(this.database, { merge: true });
-      this.$toast.open({
+      this.ref.doc(this.key).set(this.docData, { merge: true });
+      this.$buefy.toast.open({
         message: "Database Updated!",
         type: "is-success"
       });
