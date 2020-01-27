@@ -4,7 +4,6 @@
     <!-- <template slot-scope="props"> -->
     <b-table
       :data="data"
-      :columns="columns"
       :paginated="isPaginated"
       :per-page="perPage"
       :opened-detailed="defaultOpenedDetails"
@@ -18,18 +17,30 @@
       aria-page-label="Page"
       aria-current-label="Current page"
     >
+      <template slot-scope="props">
+        <b-table-column field="key" label="ID">
+          {{ props.row.key }}
+        </b-table-column>
+        <b-table-column field="name" label="Name">
+          {{ props.row.name }}
+        </b-table-column>
+        <b-table-column field="url" label="URL">
+          {{ props.row.url }}
+        </b-table-column>
+        <b-table-column field="editButton" label="Edit Entry">
+          <button
+            class="button is-info"
+            @click.stop="editData(props.row.key)"
+          >
+            Edit
+          </button>
+        </b-table-column>
+      </template>
+
       <template slot="detail" slot-scope="props">
         <article class="media">
           <figure class="media-left">
             <p>Description: {{ props.row.description }}</p>
-            <p>
-              <button
-                class="button is-light"
-                @click.stop="editData(props.row.key)"
-              >
-                Edit
-              </button>
-            </p>
           </figure>
         </article>
       </template></b-table
