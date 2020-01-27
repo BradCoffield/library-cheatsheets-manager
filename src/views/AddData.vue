@@ -13,9 +13,7 @@
       <b-field label="URL">
         <b-input v-model="dataStore.url"></b-input>
       </b-field>
-      <b-field label="Categories">
-        <b-input v-model="dataStore.categories" disabled></b-input>
-      </b-field>
+      
 
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
