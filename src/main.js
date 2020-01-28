@@ -18,13 +18,16 @@ const config = {
 router.beforeEach((to, from, next) => {
   if (!to.meta.protected) {
     //route is public, don't check for authentication
+    // console.log(to.name, "No need for auth!");
     next();
   } else {
     //route is protected, if authenticated, proceed. Else, login
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        // console.log(to.name, "Auth needed but shazam you be logged in!");
         next();
       } else {
+        // console.log(to.name, "Auth needed, get your ass over to login!");
         router.push("/login");
       }
     });
