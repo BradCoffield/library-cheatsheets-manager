@@ -27,14 +27,7 @@
 
       
 
-        <!-- <b-navbar-dropdown label="Metadata">
-          <b-navbar-item>
-            <router-link to="/manage-content-types">Content Types</router-link>
-          </b-navbar-item>
-          <b-navbar-item>
-            <router-link to="/manage-topic-areas">Topic Areas</router-link>
-          </b-navbar-item>
-        </b-navbar-dropdown> -->
+      
       </template>
 
     </b-navbar>

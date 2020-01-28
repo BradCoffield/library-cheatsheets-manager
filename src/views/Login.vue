@@ -1,29 +1,32 @@
 <template>
-    <div>
-        <div id="firebaseui-auth-container"></div>
-    </div>
+  <div>
+    <div id="firebaseui-auth-container"></div>
+  </div>
 </template>
 
 <script>
-import firebase from "firebase"
-import * as firebaseui from "firebaseui"
-import "../../node_modules/firebaseui/dist/firebaseui.css"
+import firebase from "firebase";
+import * as firebaseui from "firebaseui";
+import "../../node_modules/firebaseui/dist/firebaseui.css";
 
 export default {
-    mounted() {
-        let uiConfig = {
-            signInOptions: [{
-                provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID
-            }],
-            callbacks: {
-                signInSuccessWithAuthResult() {
-                    localStorage.setItem('authenticated', true)
-                    window.location.href = '/'
-                }
-            }
+  mounted() {
+    let uiConfig = {
+      signInOptions: [
+        {
+          provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID
         }
-        var ui = new firebaseui.auth.AuthUI(firebase.auth())
-        ui.start("#firebaseui-auth-container", uiConfig)
-    }
-}
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult() {
+          localStorage.setItem("authenticated", true);
+          window.location.href = "/";
+        }
+      }
+    };
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.reset();
+    ui.start("#firebaseui-auth-container", uiConfig);
+  }
+};
 </script>
