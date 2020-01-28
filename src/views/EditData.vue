@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import firebase from "../Firebase";
+import firebase from "firebase";
 import router from "../router";
 // import _ from "lodash";
 // import contentTypesList from "../components/editDatabases/EditDatabasesContentTypes";

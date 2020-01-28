@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import firebase from "./Firebase";
+import firebase from "firebase";
 import * as firebaseui from "firebaseui";
 export default {
   data() {
@@ -71,7 +71,7 @@ export default {
         uiShown: function() {
           // The widget is rendered.
           // Hide the loader.
-          document.getElementById("loader").style.display = "none";
+          // document.getElementById("loader").style.display = "none";
         }
       },
       // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
