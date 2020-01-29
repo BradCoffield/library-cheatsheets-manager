@@ -6,7 +6,7 @@
         <b-input v-model="dataStore.name"></b-input>
       </b-field>
 
-<h3>Metadata</h3>
+<h3 class="title is-3">Metadata</h3>
       <b-field label="Use in production?">
          <b-switch v-model="dataStore.metadata.useInProduction"></b-switch>
        

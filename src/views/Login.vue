@@ -25,15 +25,20 @@ export default {
       }
     };
 
-let ui = firebaseui.auth.AuthUI.getInstance();
-    if (!ui) {
-      ui = new firebaseui.auth.AuthUI(window.firebase.auth());
-    }
-    ui.start('#firebaseui-auth-container', uiConfig);
+    // let ui = firebaseui.auth.AuthUI.getInstance();
+    //     if (!ui) {
+    //       ui = new firebaseui.auth.AuthUI(window.firebase.auth());
+    //     }
+    //     ui.start('#firebaseui-auth-container', uiConfig);
 
     // var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  
     // ui.start("#firebaseui-auth-container", uiConfig);
+
+    let ui = firebaseui.auth.AuthUI.getInstance();
+    if (!ui) {
+      ui = new firebaseui.auth.AuthUI(firebase.auth());
+    }
+    ui.start("#firebaseui-auth-container", uiConfig);
   }
 };
 </script>
