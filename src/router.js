@@ -5,6 +5,8 @@ import Home from "./views/Home.vue";
 import DataList from "./views/DataList.vue";
 import AddData from "./views/AddData.vue";
 import EditData from "./views/EditData.vue";
+import Login from "./views/Login.vue";
+import Logout from "./views/Logout.vue";
 
 // import AddDatabase from "./views/AddDatabase.vue";
 // import EditDatabase from "./views/EditDatabase.vue";
@@ -31,17 +33,36 @@ export default new Router({
     {
       path: "/data-list",
       name: "data-list",
-      component: DataList
+      component: DataList,
+      meta: {
+        protected: true
+      }
     },
     {
       path: "/add-data",
       name: "add-data",
-      component: AddData
+      component: AddData,
+      meta: {
+        protected: true
+      }
     },
     {
       path: "/edit-data",
       name: "edit-data",
-      component: EditData
+      component: EditData,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: Logout
     }
     /* ,
     {
