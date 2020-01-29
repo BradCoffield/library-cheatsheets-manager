@@ -43,6 +43,8 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   created() {
+    console.log("created!", config.authDomain)
+    
     firebase.initializeApp(config);
   },
   render: h => h(App)

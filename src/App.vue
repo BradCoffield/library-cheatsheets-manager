@@ -19,11 +19,17 @@
         <b-navbar-item>
           <router-link to="/add-data">Add Data</router-link>
         </b-navbar-item>
+        <b-navbar-item>
+          <router-link to="/add-cheatsheet">Add Cheatsheet</router-link>
+        </b-navbar-item>
 
+        
+    
+           
         <b-navbar-item
           ><router-link to="/login" v-if="!authenticated">Login</router-link>
           <router-link to="/logout" v-else>Logout</router-link>
-        </b-navbar-item>
+        </b-navbar-item> 
 
       
 
