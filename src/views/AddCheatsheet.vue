@@ -6,10 +6,13 @@
         <b-input v-model="dataStore.name"></b-input>
       </b-field>
 
-<h3 class="title is-3">Metadata</h3>
+<h2 class="title is-2">Available Blocks</h2>
+
+<h3 class="title is-3">Citation Styles</h3>
+<h4 class="title is-4">Metadata</h4>
       <b-field label="Use in production?">
          <b-switch v-model="dataStore.metadata.useInProduction"></b-switch>
-       
+       Whether or not you want this block used on the actual page.
       </b-field>
       
 
