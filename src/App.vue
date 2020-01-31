@@ -8,7 +8,7 @@
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <span id="library-logo-text" style="font-weight:bold"
-            >Vue Firestore Crud Starter</span
+            >Library Cheatsheets Manager</span
           >
         </b-navbar-item>
       </template>
