@@ -37,7 +37,7 @@
       <b-field label="Use in production?">
         <b-switch v-model="dataStore.dpla.metadata.useInProduction"></b-switch>
       </b-field>
-      <b-field label="Topics">
+      <b-field label="DPLA Search Term(s)">
         <b-input v-model="dataStore.dpla.topics"></b-input>
       </b-field>
 
@@ -57,9 +57,60 @@
         searchTerm field. If selected and submitted will add that document name,
         which is a shortId, to the cheatsheets with that uid in the uid field.
       </b-field>
-      <b-field label="Cache and Use a New Search">
-        this will be an input with a run button
+      <b-field label="Cache a new search">
+        this will be an input with a run button. will talk to proxy server run
+        the new search and refresh the above area so its then available to
+        choose for this form.
       </b-field>
+
+      <h3 class="title is-3">Primo Article Search</h3>
+      <b-field label="Use in production?">
+        <b-switch
+          v-model="dataStore.primo_article_searches.metadata.useInProduction"
+        ></b-switch>
+      </b-field>
+      <b-field label="Available Cached Searches">
+        this is going to query rmc-library-data "primo-article-searches" and
+        list the searchTerm field. If selected and submitted will add that
+        document name, which is a shortId, to the cheatsheets with that uid in
+        the uid field.
+      </b-field>
+      <b-field label="Cache a new search">
+        this will be an input with a run button. will talk to proxy server run
+        the new search and refresh the above area so its then available to
+        choose for this form.
+      </b-field>
+
+      <h3 class="title is-3">Primo Book Search</h3>
+      <b-field label="Use in production?">
+        <b-switch
+          v-model="dataStore.primo_book_searches.metadata.useInProduction"
+        ></b-switch>
+      </b-field>
+      <b-field label="Available Cached Searches">
+        this is going to query rmc-library-data "primo-book-searches" and list
+        the searchTerm field. If selected and submitted will add that document
+        name, which is a shortId, to the cheatsheets with that uid in the uid
+        field.
+      </b-field>
+      <b-field label="Cache a new search">
+        this will be an input with a run button. will talk to proxy server run
+        the new search and refresh the above area so its then available to
+        choose for this form.
+      </b-field>
+
+      <h3 class="title is-3">Primo Quick Search</h3>
+      <b-field label="Use in production?">
+        <b-switch
+          v-model="dataStore.primo_quick_search.metadata.useInProduction"
+        ></b-switch
+      ></b-field>
+      <h3 class="title is-3">Weblinks</h3>
+      <b-field label="Use in production?">
+        <b-switch
+          v-model="dataStore.weblinks_block.metadata.useInProduction"
+        ></b-switch
+      ></b-field>
 
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
@@ -92,7 +143,11 @@ export default {
           metadata: { useInProduction: false }
         },
         dpla: { metadata: { useInProduction: false }, topics: "" },
-        ebsco_api_a9h: { metadata: { useInProduction: false } }
+        ebsco_api_a9h: { metadata: { useInProduction: false } },
+        primo_article_searches: { metadata: { useInProduction: false } },
+        primo_book_searches: { metadata: { useInProduction: false } },
+        primo_quick_search: { metadata: { useInProduction: false } },
+        weblinks_block: { metadata: { useInProduction: false } }
       },
       ref: firebase.firestore().collection("Cheatsheets") //name of the collection in firestore that contains all your real data
     };

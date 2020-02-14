@@ -61,7 +61,7 @@ export default {
       currentPage: 1,
       perPage: 5,
       errors: [],
-      ref: firebase.firestore().collection("generic-test-collection") //name of the collection in firestore that contains all your real data
+      ref: firebase.firestore().collection("Cheatsheets") //name of the collection in firestore that contains all your real data
     };
   },
   created() {
