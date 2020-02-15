@@ -23,19 +23,11 @@
           <router-link to="/add-cheatsheet">Add Cheatsheet</router-link>
         </b-navbar-item>
 
-        
-    
-           
         <b-navbar-item
           ><router-link to="/login" v-if="!authenticated">Login</router-link>
           <router-link to="/logout" v-else>Logout</router-link>
-        </b-navbar-item> 
-
-      
-
-      
+        </b-navbar-item>
       </template>
-
     </b-navbar>
 
     <router-view :key="$route.fullPath" />
@@ -51,8 +43,9 @@ export default {
   },
   methods: {},
   created() {
+    // console.log(secondary);
     // const ui = new firebaseui.auth.AuthUI(firebase.auth());
- 
+
     // var uiConfig = {
     //   callbacks: {
     //     signInSuccessWithAuthResult: function() {
@@ -74,7 +67,7 @@ export default {
     //     // Leave the lines as is for the providers you want to offer your users.
     //     firebase.auth.GoogleAuthProvider.PROVIDER_ID
     //   ]
-   
+
     // };
     // // The start method will wait until the DOM is loaded.
     // ui.start("#firebaseui-auth-container", uiConfig);

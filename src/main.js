@@ -15,6 +15,15 @@ const config = {
   messagingSenderId: process.env.VUE_APP_FIRESTORE_MESSAGING_SENDER_ID
 };
 
+const libDataConfig = {
+  apiKey: process.env.VUE_APP_LIBDATAFIRESTORE_API_KEY,
+  authDomain: process.env.VUE_APP_LIBDATAFIRESTORE_AUTH_DOMAIN,
+  databaseURL: process.env.VUE_APP_LIBDATAFIRESTORE_DATABASE_URL,
+  projectId: process.env.VUE_APP_LIBDATAFIRESTORE_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_LIBDATAFIRESTORE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_LIBDATAFIRESTORE_MESSAGING_SENDER_ID
+};
+
 router.beforeEach((to, from, next) => {
   if (!to.meta.protected) {
     //route is public, don't check for authentication
@@ -43,9 +52,12 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   created() {
-    console.log("created!", config.authDomain)
-    
+    console.log("created!", config.authDomain);
+
     firebase.initializeApp(config);
+    var secondary = firebase.initializeApp(libDataConfig, "secondary");
+    secondary.firestore();
+    console.log(secondary);
   },
   render: h => h(App)
 }).$mount("#app");
