@@ -45,7 +45,6 @@ export default {
   created() {
     // console.log(secondary);
     // const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
     // var uiConfig = {
     //   callbacks: {
     //     signInSuccessWithAuthResult: function() {
@@ -67,7 +66,6 @@ export default {
     //     // Leave the lines as is for the providers you want to offer your users.
     //     firebase.auth.GoogleAuthProvider.PROVIDER_ID
     //   ]
-
     // };
     // // The start method will wait until the DOM is loaded.
     // ui.start("#firebaseui-auth-container", uiConfig);

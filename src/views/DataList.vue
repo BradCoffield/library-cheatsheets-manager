@@ -49,6 +49,7 @@
 <script>
 import firebase from "firebase";
 import router from "../router";
+import dbData from "../Firebase";
 
 export default {
   data() {
@@ -62,11 +63,12 @@ export default {
       perPage: 5,
       errors: [],
       ref: firebase.firestore().collection("Cheatsheets"), //name of the collection in firestore that contains all your real data
-      refData: firebase.secondary.firestore().collection("ebsco-searches")
+      refData: dbData.collection("ebsco-searches")
     };
   },
   created() {
     this.isLoading = true;
+    
     this.refData.onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         console.log(doc.id, doc.data());
