@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <img src="../assets/logo-small.png" alt="Firebase logo">
-    <HelloWorld msg="Vue+Firestore CRUD Starter" />
+    <HelloWorld msg="Library Cheatsheets Manager" />
   </div>
 </template>
 

@@ -7,6 +7,7 @@ import AddData from "./views/AddData.vue";
 import EditData from "./views/EditData.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
+import AddCheatsheet from "./views/AddCheatsheet.vue"
 
 // import AddDatabase from "./views/AddDatabase.vue";
 // import EditDatabase from "./views/EditDatabase.vue";
@@ -42,6 +43,14 @@ export default new Router({
       path: "/add-data",
       name: "add-data",
       component: AddData,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/add-cheatsheet",
+      name: "add-cheatsheet",
+      component: AddCheatsheet,
       meta: {
         protected: true
       }

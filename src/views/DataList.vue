@@ -49,6 +49,7 @@
 <script>
 import firebase from "firebase";
 import router from "../router";
+import dbData from "../Firebase";
 
 export default {
   data() {
@@ -61,11 +62,18 @@ export default {
       currentPage: 1,
       perPage: 5,
       errors: [],
-      ref: firebase.firestore().collection("generic-test-collection") //name of the collection in firestore that contains all your real data
+      ref: firebase.firestore().collection("Cheatsheets"), //name of the collection in firestore that contains all your real data
+      refData: dbData.collection("ebsco-searches")
     };
   },
   created() {
     this.isLoading = true;
+    
+    this.refData.onSnapshot(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.id, doc.data());
+      });
+    });
     this.ref.onSnapshot(querySnapshot => {
       this.data = [];
       querySnapshot.forEach(doc => {
