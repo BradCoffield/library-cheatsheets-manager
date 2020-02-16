@@ -8,109 +8,164 @@
 
       <h2 class="title is-2">Available Blocks</h2>
 
-      <h3 class="title is-3">Citation Styles</h3>
-      <h4 class="title is-4">Metadata</h4>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.citation_styles.metadata.useInProduction"
-        ></b-switch>
-      </b-field>
-      <b-field label="Full Width?">
-        <b-switch
-          v-model="dataStore.citation_styles.metadata.fullWidth"
-        ></b-switch>
-      </b-field>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Citation Styles</h3>
+          <h4 class="title is-4">Metadata</h4>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.citation_styles.metadata.useInProduction"
+            ></b-switch>
+          </b-field>
+          <b-field label="Full Width?">
+            <b-switch
+              v-model="dataStore.citation_styles.metadata.fullWidth"
+            ></b-switch>
+          </b-field>
 
-      <b-field label="Styles Wanted">
-        This will be an area populated, like database types, from another single
-        source of truth of all possible citation styles.
-      </b-field>
+          <b-field label="Styles Wanted">
+            This will be an area populated, like database types, from another
+            single source of truth of all possible citation styles.
+          </b-field>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Databases</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.databases.metadata.useInProduction"
+            ></b-switch>
+          </b-field>
+        </div>
+      </div>
 
-      <h3 class="title is-3">Databases</h3>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.databases.metadata.useInProduction"
-        ></b-switch>
-      </b-field>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Digital Public Library of America</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.dpla.metadata.useInProduction"
+            ></b-switch>
+          </b-field>
+          <b-field label="DPLA Search Term(s)">
+            <b-input v-model="dataStore.dpla.topics"></b-input>
+          </b-field>
+        </div>
+      </div>
 
-      <h3 class="title is-3">Digital Public Library of America</h3>
-      <b-field label="Use in production?">
-        <b-switch v-model="dataStore.dpla.metadata.useInProduction"></b-switch>
-      </b-field>
-      <b-field label="DPLA Search Term(s)">
-        <b-input v-model="dataStore.dpla.topics"></b-input>
-      </b-field>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">EBSCO API - Academic Search Complete</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.ebsco_api_a9h.metadata.useInProduction"
+            ></b-switch>
+          </b-field>
+          <b-field label="Searches Currently Used">
+            This will be checkboxes with the searches currently used on this
+            cheatsheet. - Well, this is moot on this page but won't be moot on
+            the Edit Cheatsheet page.
+          </b-field>
+ 
+          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
-      <h3 class="title is-3">EBSCO API - Academic Search Complete</h3>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.ebsco_api_a9h.metadata.useInProduction"
-        ></b-switch>
-      </b-field>
-      <b-field label="Searches Currently Used">
-        This will be checkboxes with the searches currently used on this
-        cheatsheet. - Well, this is moot on this page but won't be moot on the
-        Edit Cheatsheet page.
-      </b-field>
-      <b-field label="Available Cached Searches">
-        this is going to query rmc-library-data "ebsco-searches" and list the
-        searchTerm field. If selected and submitted will add that document name,
-        which is a shortId, to the cheatsheets with that uid in the uid field.
-      </b-field>
-      <b-field label="Cache a new search">
-        this will be an input with a run button. will talk to proxy server run
-        the new search and refresh the above area so its then available to
-        choose for this form.
-      </b-field>
+         <b-field label="Available Cached Searches - Select One">
+            <ul v-if="ebscoCachedSearchesController.length > 0">
+              <li
+                style="display:inline"
+                v-for="(item, index) in ebscoCachedSearchesController"
+                :key="index"
+              >
+                <button
+                  class="button lil-space-here"
+                  :class="{
+                    'is-success': item.selected,
+                    'is-text': !item.selected
+                  }"
+                  @click="item.selected = !item.selected"
+                >
+                  {{ item.name }}
+                </button>
+              </li>
+            </ul>
+          </b-field>  
 
-      <h3 class="title is-3">Primo Article Search</h3>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.primo_article_searches.metadata.useInProduction"
-        ></b-switch>
-      </b-field>
-      <b-field label="Available Cached Searches">
-        this is going to query rmc-library-data "primo-article-searches" and
-        list the searchTerm field. If selected and submitted will add that
-        document name, which is a shortId, to the cheatsheets with that uid in
-        the uid field.
-      </b-field>
-      <b-field label="Cache a new search">
-        this will be an input with a run button. will talk to proxy server run
-        the new search and refresh the above area so its then available to
-        choose for this form.
-      </b-field>
+          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
-      <h3 class="title is-3">Primo Book Search</h3>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.primo_book_searches.metadata.useInProduction"
-        ></b-switch>
-      </b-field>
-      <b-field label="Available Cached Searches">
-        this is going to query rmc-library-data "primo-book-searches" and list
-        the searchTerm field. If selected and submitted will add that document
-        name, which is a shortId, to the cheatsheets with that uid in the uid
-        field.
-      </b-field>
-      <b-field label="Cache a new search">
-        this will be an input with a run button. will talk to proxy server run
-        the new search and refresh the above area so its then available to
-        choose for this form.
-      </b-field>
+          <b-field label="Cache a new search">
+            this will be an input with a run button. will talk to proxy server
+            run the new search and refresh the above area so its then available
+            to choose for this form.
+          </b-field>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Primo Article Search</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="
+                dataStore.primo_article_searches.metadata.useInProduction
+              "
+            ></b-switch>
+          </b-field>
+          <b-field label="Available Cached Searches">
+            this is going to query rmc-library-data "primo-article-searches" and
+            list the searchTerm field. If selected and submitted will add that
+            document name, which is a shortId, to the cheatsheets with that uid
+            in the uid field.
+          </b-field>
+          <b-field label="Cache a new search">
+            this will be an input with a run button. will talk to proxy server
+            run the new search and refresh the above area so its then available
+            to choose for this form.
+          </b-field>
+        </div>
+      </div>
 
-      <h3 class="title is-3">Primo Quick Search</h3>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.primo_quick_search.metadata.useInProduction"
-        ></b-switch
-      ></b-field>
-      <h3 class="title is-3">Weblinks</h3>
-      <b-field label="Use in production?">
-        <b-switch
-          v-model="dataStore.weblinks_block.metadata.useInProduction"
-        ></b-switch
-      ></b-field>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Primo Book Search</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.primo_book_searches.metadata.useInProduction"
+            ></b-switch>
+          </b-field>
+          <b-field label="Available Cached Searches">
+            this is going to query rmc-library-data "primo-book-searches" and
+            list the searchTerm field. If selected and submitted will add that
+            document name, which is a shortId, to the cheatsheets with that uid
+            in the uid field.
+          </b-field>
+          <b-field label="Cache a new search">
+            this will be an input with a run button. will talk to proxy server
+            run the new search and refresh the above area so its then available
+            to choose for this form.
+          </b-field>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Primo Quick Search</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.primo_quick_search.metadata.useInProduction"
+            ></b-switch
+          ></b-field>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="block-block">
+          <h3 class="title is-3">Weblinks</h3>
+          <b-field label="Use in production?">
+            <b-switch
+              v-model="dataStore.weblinks_block.metadata.useInProduction"
+            ></b-switch
+          ></b-field>
+        </div>
+      </div>
 
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
@@ -127,12 +182,15 @@
 <script>
 import firebase from "firebase";
 import router from "../router";
+import dbData from "../Firebase";
+
 export default {
   name: "AddData",
   data() {
     return {
+      ebscoCachedSearchesController: [],
       dataStore: {
-        name: "hi",
+        name: "",
         citation_styles: {
           metadata: {
             useInProduction: false,
@@ -151,6 +209,31 @@ export default {
       },
       ref: firebase.firestore().collection("Cheatsheets") //name of the collection in firestore that contains all your real data
     };
+  },
+  created() {
+    dbData.collection("ebsco-searches").onSnapshot(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // doc.data().searchTerm
+        let rObj = {};
+        rObj.name = doc.data().searchTerm;
+        rObj.selected = false;
+        this.ebscoCachedSearchesController.push(rObj);
+      });
+    });
+    // dbData.collection("ebsco-searches").get().then(doc => {
+    //   if (doc.exists) {
+    //     console.log("hey hi", doc.data());
+    //     // this.contentTypesController = doc.data().forDatabases.map(item => {
+    //     //   let rObj = {};
+    //     //   rObj.name = item;
+    //     //   rObj.selected = false;
+    //     //   // console.log(rObj);
+    //     //   return rObj;
+    //     // });
+    //   } else {
+    //     alert("No such document!");
+    //   }
+    // });
   },
   methods: {
     goHome() {
