@@ -100,6 +100,8 @@
           </b-field>
         </div>
       </div>
+     
+     
       <div class="tile">
         <div class="block-block">
           <h3 class="title is-3">Primo Article Search</h3>
@@ -110,12 +112,31 @@
               "
             ></b-switch>
           </b-field>
-          <b-field label="Available Cached Searches">
-            this is going to query rmc-library-data "primo-article-searches" and
-            list the searchTerm field. If selected and submitted will add that
-            document name, which is a shortId, to the cheatsheets with that uid
-            in the uid field.
-          </b-field>
+          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
+
+         <b-field label="Available Cached Searches - Select One">
+            <ul v-if="primoArticleSearchesController.length > 0">
+              <li
+                style="display:inline"
+                v-for="(item, index) in primoArticleSearchesController"
+                :key="index"
+              >
+                <button
+                  class="button lil-space-here"
+                  :class="{
+                    'is-success': item.selected,
+                    'is-text': !item.selected
+                  }"
+                  @click="item.selected = !item.selected"
+                >
+                  {{ item.name }}
+                </button>
+              </li>
+            </ul>
+          </b-field>  
+
+          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
+
           <b-field label="Cache a new search">
             this will be an input with a run button. will talk to proxy server
             run the new search and refresh the above area so its then available
@@ -132,12 +153,30 @@
               v-model="dataStore.primo_book_searches.metadata.useInProduction"
             ></b-switch>
           </b-field>
-          <b-field label="Available Cached Searches">
-            this is going to query rmc-library-data "primo-book-searches" and
-            list the searchTerm field. If selected and submitted will add that
-            document name, which is a shortId, to the cheatsheets with that uid
-            in the uid field.
-          </b-field>
+          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
+
+         <b-field label="Available Cached Searches - Select One">
+            <ul v-if="primoBookSearchesController.length > 0">
+              <li
+                style="display:inline"
+                v-for="(item, index) in primoBookSearchesController"
+                :key="index"
+              >
+                <button
+                  class="button lil-space-here"
+                  :class="{
+                    'is-success': item.selected,
+                    'is-text': !item.selected
+                  }"
+                  @click="item.selected = !item.selected"
+                >
+                  {{ item.name }}
+                </button>
+              </li>
+            </ul>
+          </b-field>  
+
+          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
           <b-field label="Cache a new search">
             this will be an input with a run button. will talk to proxy server
             run the new search and refresh the above area so its then available
@@ -167,6 +206,36 @@
         </div>
       </div>
 
+      <div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+          <!-- Put any content you want -->
+        </article>
+        <article class="tile is-child box">
+          <!-- Put any content you want -->
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <!-- Put any content you want -->
+        </article>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <!-- Put any content you want -->
+      </article>
+    </div>
+  </div>
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+      <!-- Put any content you want -->
+    </article>
+  </div>
+</div>
+
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
           <span class="mdi mdi-cancel"></span> Cancel
@@ -189,6 +258,8 @@ export default {
   data() {
     return {
       ebscoCachedSearchesController: [],
+      primoArticleSearchesController:[],
+      primoBookSearchesController:[],
       dataStore: {
         name: "",
         citation_styles: {
@@ -218,6 +289,26 @@ export default {
         rObj.name = doc.data().searchTerm;
         rObj.selected = false;
         this.ebscoCachedSearchesController.push(rObj);
+      });
+    });
+    dbData.collection("primo-article-searches").onSnapshot(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // doc.data().searchTerm
+        console.log(doc.data());
+        let rObj = {};
+        rObj.name = doc.data().searchTerm;
+        rObj.selected = false;
+        this.primoArticleSearchesController.push(rObj);
+      });
+    });
+    dbData.collection("primo-book-searches").onSnapshot(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // doc.data().searchTerm
+        console.log(doc.data());
+        let rObj = {};
+        rObj.name = doc.data().searchTerm;
+        rObj.selected = false;
+        this.primoBookSearchesController.push(rObj);
       });
     });
     // dbData.collection("ebsco-searches").get().then(doc => {
