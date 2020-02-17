@@ -22,8 +22,8 @@
               v-model="dataStore.citation_styles.metadata.fullWidth"
             ></b-switch>
           </b-field>
-<!-- ***************************************************************************************************** -->
-         <b-field label="Available Citation Styles">
+          <!-- ***************************************************************************************************** -->
+          <b-field label="Available Citation Styles">
             <ul v-if="citationStylesController.length > 0">
               <li
                 style="display:inline"
@@ -267,6 +267,8 @@
 import firebase from "firebase";
 import router from "../router";
 import dbData from "../Firebase";
+const fetch = require("node-fetch");
+// import shortid from "shortid";
 
 export default {
   name: "AddData",
@@ -275,7 +277,7 @@ export default {
       ebscoCachedSearchesController: [],
       primoArticleSearchesController: [],
       primoBookSearchesController: [],
-      citationStylesController:[],
+      citationStylesController: [],
       dataStore: {
         name: "",
         citation_styles: {
@@ -321,7 +323,7 @@ export default {
     dbData.collection("primo-book-searches").onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         // doc.data().searchTerm
-        console.log(doc.data());
+        // console.log(doc.data());
         let rObj = {};
         rObj.name = doc.data().searchTerm;
         rObj.selected = false;
@@ -329,17 +331,57 @@ export default {
       });
     });
     this.citationStylesWanted();
+
+    // this.cacheSearch("ebsco-search", {
+    //   scholarly: true,
+    //   fulltext: true,
+    //   value: "Javascript",
+    //   daterange: true
+    // });
+    // this.cacheSearch("primo-book-search", {field:"any", precision:"contains", value:"Javascript"})
   },
   methods: {
+    cacheSearch(target, optionsObject) {
+      console.log("hi");
+      const urlBase = "https://rmc-proxy-server.herokuapp.com/api/";
+      const field = optionsObject.field;
+      const precision = optionsObject.precision;
+      const value = optionsObject.value;
+      const fulltext = optionsObject.fulltext;
+      const scholarly = optionsObject.scholarly;
+      const daterange = optionsObject.daterange;
+      if (target == "primo-book-search") {
+        runCache(
+          `${urlBase}/cache-primo-book-search/${field}/${precision}/${value}`
+        );
+      }
+      if (target == "primo-article-search") {
+        runCache(
+          `${urlBase}/cache-primo-article-search/${field}/${precision}/${value}/${fulltext}`
+        );
+      }
+      if (target == "ebsco-search") {
+        console.log("ebsco-search")
+        runCache(
+          `${urlBase}/cache-ebsco-search/${value}?scholarly=${scholarly}&fulltext=${fulltext}&daterange=${daterange}`
+        );
+      }
+      function runCache(url) {
+        console.log("yayay")
+        fetch(url)
+          .then(res => res.text())
+          .then(body => console.log(body));
+      }
+    },
     citationStylesWanted() {
       this.ref2.onSnapshot(querySnapshot => {
         this.data = [];
         querySnapshot.forEach(doc => {
           console.log(doc.id, doc.data());
           let rObj = {};
-        rObj.name = doc.id;
-        rObj.selected = false;
-        this.citationStylesController.push(rObj);
+          rObj.name = doc.id;
+          rObj.selected = false;
+          this.citationStylesController.push(rObj);
         });
       });
 
