@@ -22,10 +22,26 @@
               v-model="dataStore.citation_styles.metadata.fullWidth"
             ></b-switch>
           </b-field>
-
-          <b-field label="Styles Wanted">
-            This will be an area populated, like database types, from another
-            single source of truth of all possible citation styles.
+<!-- ***************************************************************************************************** -->
+         <b-field label="Available Citation Styles">
+            <ul v-if="citationStylesController.length > 0">
+              <li
+                style="display:inline"
+                v-for="(item, index) in citationStylesController"
+                :key="index"
+              >
+                <button
+                  class="button lil-space-here"
+                  :class="{
+                    'is-success': item.selected,
+                    'is-text': !item.selected
+                  }"
+                  @click="item.selected = !item.selected"
+                >
+                  {{ item.name }}
+                </button>
+              </li>
+            </ul>
           </b-field>
         </div>
       </div>
@@ -67,10 +83,10 @@
             cheatsheet. - Well, this is moot on this page but won't be moot on
             the Edit Cheatsheet page.
           </b-field>
- 
+
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
-         <b-field label="Available Cached Searches - Select One">
+          <b-field label="Available Cached Searches - Select One">
             <ul v-if="ebscoCachedSearchesController.length > 0">
               <li
                 style="display:inline"
@@ -89,7 +105,7 @@
                 </button>
               </li>
             </ul>
-          </b-field>  
+          </b-field>
 
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
@@ -100,8 +116,7 @@
           </b-field>
         </div>
       </div>
-     
-     
+
       <div class="tile">
         <div class="block-block">
           <h3 class="title is-3">Primo Article Search</h3>
@@ -114,7 +129,7 @@
           </b-field>
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
-         <b-field label="Available Cached Searches - Select One">
+          <b-field label="Available Cached Searches - Select One">
             <ul v-if="primoArticleSearchesController.length > 0">
               <li
                 style="display:inline"
@@ -133,7 +148,7 @@
                 </button>
               </li>
             </ul>
-          </b-field>  
+          </b-field>
 
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
@@ -155,7 +170,7 @@
           </b-field>
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
-         <b-field label="Available Cached Searches - Select One">
+          <b-field label="Available Cached Searches - Select One">
             <ul v-if="primoBookSearchesController.length > 0">
               <li
                 style="display:inline"
@@ -174,7 +189,7 @@
                 </button>
               </li>
             </ul>
-          </b-field>  
+          </b-field>
 
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
           <b-field label="Cache a new search">
@@ -207,34 +222,34 @@
       </div>
 
       <div class="tile is-ancestor">
-  <div class="tile is-vertical is-8">
-    <div class="tile">
-      <div class="tile is-parent is-vertical">
-        <article class="tile is-child box">
-          <!-- Put any content you want -->
-        </article>
-        <article class="tile is-child box">
-          <!-- Put any content you want -->
-        </article>
+        <div class="tile is-vertical is-8">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child box">
+                <!-- Put any content you want -->
+              </article>
+              <article class="tile is-child box">
+                <!-- Put any content you want -->
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <!-- Put any content you want -->
+              </article>
+            </div>
+          </div>
+          <div class="tile is-parent">
+            <article class="tile is-child box">
+              <!-- Put any content you want -->
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <!-- Put any content you want -->
+          </article>
+        </div>
       </div>
-      <div class="tile is-parent">
-        <article class="tile is-child box">
-          <!-- Put any content you want -->
-        </article>
-      </div>
-    </div>
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <!-- Put any content you want -->
-      </article>
-    </div>
-  </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <!-- Put any content you want -->
-    </article>
-  </div>
-</div>
 
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
@@ -258,8 +273,9 @@ export default {
   data() {
     return {
       ebscoCachedSearchesController: [],
-      primoArticleSearchesController:[],
-      primoBookSearchesController:[],
+      primoArticleSearchesController: [],
+      primoBookSearchesController: [],
+      citationStylesController:[],
       dataStore: {
         name: "",
         citation_styles: {
@@ -278,7 +294,8 @@ export default {
         primo_quick_search: { metadata: { useInProduction: false } },
         weblinks_block: { metadata: { useInProduction: false } }
       },
-      ref: firebase.firestore().collection("Cheatsheets") //name of the collection in firestore that contains all your real data
+      ref: firebase.firestore().collection("Cheatsheets"), //name of the collection in firestore that contains all your real data
+      ref2: firebase.firestore().collection("CitationStylesRepository")
     };
   },
   created() {
@@ -311,22 +328,23 @@ export default {
         this.primoBookSearchesController.push(rObj);
       });
     });
-    // dbData.collection("ebsco-searches").get().then(doc => {
-    //   if (doc.exists) {
-    //     console.log("hey hi", doc.data());
-    //     // this.contentTypesController = doc.data().forDatabases.map(item => {
-    //     //   let rObj = {};
-    //     //   rObj.name = item;
-    //     //   rObj.selected = false;
-    //     //   // console.log(rObj);
-    //     //   return rObj;
-    //     // });
-    //   } else {
-    //     alert("No such document!");
-    //   }
-    // });
+    this.citationStylesWanted();
   },
   methods: {
+    citationStylesWanted() {
+      this.ref2.onSnapshot(querySnapshot => {
+        this.data = [];
+        querySnapshot.forEach(doc => {
+          console.log(doc.id, doc.data());
+          let rObj = {};
+        rObj.name = doc.id;
+        rObj.selected = false;
+        this.citationStylesController.push(rObj);
+        });
+      });
+
+      console.log("hihi");
+    },
     goHome() {
       router.push("/");
     },
