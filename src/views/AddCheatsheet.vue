@@ -113,7 +113,27 @@
             this will be an input with a run button. will talk to proxy server
             run the new search and refresh the above area so its then available
             to choose for this form.
+         
           </b-field>
+             <div class="field">
+            <b-checkbox v-model="cacheNewSearch_Ebsco.fulltext">
+                Full-text only?
+            </b-checkbox>
+        </div>
+          <div class="block">
+            <b-checkbox v-model="ebscoCacheASearchCheckboxGroup"
+                native-value="fulltext">
+                Full-Text Only?
+            </b-checkbox>
+            <b-checkbox v-model="ebscoCacheASearchCheckboxGroup"
+                native-value="scholarly">
+                Scholarly Only?
+            </b-checkbox>
+            <b-checkbox v-model="ebscoCacheASearchCheckboxGroup"
+                native-value="daterange">
+                Recent Only?
+            </b-checkbox>
+          </div>
         </div>
       </div>
 
@@ -278,6 +298,8 @@ export default {
       primoArticleSearchesController: [],
       primoBookSearchesController: [],
       citationStylesController: [],
+     cacheNewSearch_Ebsco:{fulltext:false, daterange:false, scholarly:false},
+      checkbox: false,
       dataStore: {
         name: "",
         citation_styles: {
@@ -313,7 +335,7 @@ export default {
     dbData.collection("primo-article-searches").onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         // doc.data().searchTerm
-        console.log(doc.data());
+        // console.log(doc.data());
         let rObj = {};
         rObj.name = doc.data().searchTerm;
         rObj.selected = false;
