@@ -109,31 +109,31 @@
 
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
-          <b-field label="Cache a new search">
-            this will be an input with a run button. will talk to proxy server
-            run the new search and refresh the above area so its then available
-            to choose for this form.
-         
-          </b-field>
-             <div class="field">
-            <b-checkbox v-model="cacheNewSearch_Ebsco.fulltext">
-                Full-text only?
-            </b-checkbox>
-        </div>
+          <b-field label="Cache a new search"> </b-field>
           <div class="block">
-            <b-checkbox v-model="ebscoCacheASearchCheckboxGroup"
-                native-value="fulltext">
-                Full-Text Only?
+            <b-field label="Search term(s)">
+              <b-input v-model="cacheNewSearch_Ebsco.value"></b-input>
+            </b-field>
+
+            <b-checkbox v-model="cacheNewSearch_Ebsco.fulltext">
+              Full-text only
             </b-checkbox>
-            <b-checkbox v-model="ebscoCacheASearchCheckboxGroup"
-                native-value="scholarly">
-                Scholarly Only?
+
+            <b-checkbox v-model="cacheNewSearch_Ebsco.daterange">
+              Recent only
             </b-checkbox>
-            <b-checkbox v-model="ebscoCacheASearchCheckboxGroup"
-                native-value="daterange">
-                Recent Only?
+
+            <b-checkbox v-model="cacheNewSearch_Ebsco.scholarly">
+              Scholarly only
             </b-checkbox>
           </div>
+          <!-- <b-button @click="">Click Me</b-button> -->
+          <b-button
+            @click="cacheSearch('ebsco-search', cacheNewSearch_Ebsco)"
+            type="is-primary"
+            outlined
+            >Cache New Search</b-button
+          >
         </div>
       </div>
 
@@ -147,7 +147,6 @@
               "
             ></b-switch>
           </b-field>
-          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
           <b-field label="Available Cached Searches - Select One">
             <ul v-if="primoArticleSearchesController.length > 0">
@@ -170,8 +169,6 @@
             </ul>
           </b-field>
 
-          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
-
           <b-field label="Cache a new search">
             this will be an input with a run button. will talk to proxy server
             run the new search and refresh the above area so its then available
@@ -188,7 +185,6 @@
               v-model="dataStore.primo_book_searches.metadata.useInProduction"
             ></b-switch>
           </b-field>
-          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
 
           <b-field label="Available Cached Searches - Select One">
             <ul v-if="primoBookSearchesController.length > 0">
@@ -211,12 +207,91 @@
             </ul>
           </b-field>
 
-          <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
           <b-field label="Cache a new search">
-            this will be an input with a run button. will talk to proxy server
+            ttthis will be an input with a run button. will talk to proxy server
             run the new search and refresh the above area so its then available
             to choose for this form.
           </b-field>
+
+          <b-field label="Cache a new search"> </b-field>
+          <div class="block">
+            <b-field label="Search term(s)">
+              <b-input v-model="cacheNewSearch_PrimoBooks.value"></b-input>
+            </b-field>
+  
+              <div class="block">
+                Precision: 
+               
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.precision"
+                    name="name1"
+                    native-value="Exact"
+                  >
+                    Exact
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.precision"
+                    name="name1"
+                    native-value="begins_with"
+                  >
+                    Begins with
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.precision"
+                    name="name1"
+                    native-value="contains"
+                  >
+                    Contains
+                  </b-radio>
+                </div>
+          
+ 
+              <!-- ********************* -->
+          
+                <div class="block">
+                  Field: 
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.field"
+                    name="name"
+                    native-value="any"
+                  >
+                    Any
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.field"
+                    name="name"
+                    native-value="title"
+                  >
+                    Title
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.field"
+                    name="name"
+                    native-value="creator"
+                  >
+                    Creator (author)
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoBooks.field"
+                    name="name"
+                    native-value="sub"
+                  >
+                    Subject
+                  </b-radio>
+             
+                
+              </div>
+         
+           
+            
+          </div>
+          <!-- <b-button @click="">Click Me</b-button> -->
+          <b-button
+            @click="cacheSearch('primo-book-search', cacheNewSearch_PrimoBooks)"
+            type="is-primary"
+            outlined
+            >Cache New Search</b-button
+          >
         </div>
       </div>
 
@@ -298,8 +373,18 @@ export default {
       primoArticleSearchesController: [],
       primoBookSearchesController: [],
       citationStylesController: [],
-     cacheNewSearch_Ebsco:{fulltext:false, daterange:false, scholarly:false},
-      checkbox: false,
+      cacheNewSearch_Ebsco: {
+        fulltext: false,
+        daterange: false,
+        scholarly: false,
+        value: ""
+      },
+      cacheNewSearch_PrimoBooks: {
+        field: "",
+        precision: "",
+        value: ""
+      },
+
       dataStore: {
         name: "",
         citation_styles: {
@@ -383,13 +468,13 @@ export default {
         );
       }
       if (target == "ebsco-search") {
-        console.log("ebsco-search")
+        console.log("ebsco-search");
         runCache(
           `${urlBase}/cache-ebsco-search/${value}?scholarly=${scholarly}&fulltext=${fulltext}&daterange=${daterange}`
         );
       }
       function runCache(url) {
-        console.log("yayay")
+        console.log("yayay");
         fetch(url)
           .then(res => res.text())
           .then(body => console.log(body));
