@@ -8,17 +8,8 @@ import EditData from "./views/EditData.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import AddCheatsheet from "./views/AddCheatsheet.vue"
-
-// import AddDatabase from "./views/AddDatabase.vue";
-// import EditDatabase from "./views/EditDatabase.vue";
-// import EditProxy from "./views/EditProxy.vue";
-// import ManageContentTypes from "./views/ManageContentTypes";
-// import ManageTopicAreas from "./views/ManageTopicAreas";
-// import VisualizeDatabaseContentTypes from "./views/VisualizeDatabaseContentTypes.vue";
-// import VisualizeDatabaseTopicAreas from "./views/VisualizeDatabaseTopicAreas.vue";
-// import AddFeaturedCollection from "./views/AddFeaturedCollection.vue";
-// import ListFeaturedCollections from "./views/ListFeaturedCollections.vue";
-// import EditFeaturedCollection from "./views/EditFeaturedCollection.vue";
+import AddCachedSearch from "./views/AddCachedSearch.vue"
+import CachedSearchesList from "./views/CachedSearchesList.vue" 
 
 Vue.use(Router);
 
@@ -39,14 +30,6 @@ export default new Router({
         protected: true
       }
     },
-    // {
-    //   path: "/add-data",
-    //   name: "add-data",
-    //   component: AddData,
-    //   meta: {
-    //     protected: true
-    //   }
-    // },
     {
       path: "/add-cheatsheet",
       name: "add-cheatsheet",
@@ -59,6 +42,22 @@ export default new Router({
       path: "/edit-data",
       name: "edit-data",
       component: EditData,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/add-cached-search",
+      name: "add-cached-search",
+      component: AddCachedSearch,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/cached-searches-list",
+      name: "cached-searches-list",
+      component: CachedSearchesList,
       meta: {
         protected: true
       }

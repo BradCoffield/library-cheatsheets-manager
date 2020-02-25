@@ -8,7 +8,7 @@
 
       <h2 class="title is-2">Available Blocks</h2>
 
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Citation Styles</h3>
           <h4 class="title is-4">Metadata</h4>
@@ -17,11 +17,11 @@
               v-model="dataStore.citation_styles.metadata.useInProduction"
             ></b-switch>
           </b-field>
-          <b-field label="Full Width?">
+          <!-- <b-field label="Full Width?">
             <b-switch
               v-model="dataStore.citation_styles.metadata.fullWidth"
             ></b-switch>
-          </b-field>
+          </b-field> -->
           <!-- ***************************************************************************************************** -->
           <b-field label="Available Citation Styles">
             <ul v-if="citationStylesController.length > 0">
@@ -45,7 +45,7 @@
           </b-field>
         </div>
       </div>
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Databases</h3>
           <b-field label="Use in production?">
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Digital Public Library of America</h3>
           <b-field label="Use in production?">
@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">EBSCO API - Academic Search Complete</h3>
           <b-field label="Use in production?">
@@ -136,8 +136,8 @@
           >
         </div>
       </div>
-
-      <div class="tile">
+<!-- -----------------------------------------primo article search----------------------------------------------->
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Primo Article Search</h3>
           <b-field label="Use in production?">
@@ -169,15 +169,87 @@
             </ul>
           </b-field>
 
-          <b-field label="Cache a new search">
-            this will be an input with a run button. will talk to proxy server
-            run the new search and refresh the above area so its then available
-            to choose for this form.
-          </b-field>
-        </div>
+             <b-field label="Cache a new search"> </b-field>
+          <div class="block">
+            <b-field label="Search term(s)">
+              <b-input v-model="cacheNewSearch_PrimoArticles.value"></b-input>
+            </b-field>
+  
+              <div class="block">
+                Precision: 
+               
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.precision"
+                    name="name1"
+                    native-value="Exact"
+                  >
+                    Exact
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.precision"
+                    name="name1"
+                    native-value="begins_with"
+                  >
+                    Begins with
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.precision"
+                    name="name1"
+                    native-value="contains"
+                  >
+                    Contains
+                  </b-radio>
+                </div>
+          
+ 
+              <!-- ********************* -->
+          
+                <div class="block">
+                  Field: 
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.field"
+                    name="name"
+                    native-value="any"
+                  >
+                    Any
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.field"
+                    name="name"
+                    native-value="title"
+                  >
+                    Title
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.field"
+                    name="name"
+                    native-value="creator"
+                  >
+                    Creator (author)
+                  </b-radio>
+                  <b-radio
+                    v-model="cacheNewSearch_PrimoArticles.field"
+                    name="name"
+                    native-value="sub"
+                  >
+                    Subject
+                  </b-radio>
+             
+                
+              </div> <div class="block">   <b-checkbox v-model="cacheNewSearch_PrimoArticles.fulltext">
+              Full-text only
+            </b-checkbox></div>
+          <!-- <b-button @click="">Click Me</b-button> -->
+          <b-button
+            @click="cacheSearch('primo-article-search', cacheNewSearch_PrimoArticles)"
+            type="is-primary"
+            outlined
+            >Cache New Search</b-button
+          >
+        </div></div>
       </div>
 
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Primo Book Search</h3>
           <b-field label="Use in production?">
@@ -295,7 +367,7 @@
         </div>
       </div>
 
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Primo Quick Search</h3>
           <b-field label="Use in production?">
@@ -305,7 +377,7 @@
           ></b-field>
         </div>
       </div>
-      <div class="tile">
+      <div class="">
         <div class="block-block">
           <h3 class="title is-3">Weblinks</h3>
           <b-field label="Use in production?">
@@ -315,36 +387,36 @@
           ></b-field>
         </div>
       </div>
-
+<!-- 
       <div class="tile is-ancestor">
         <div class="tile is-vertical is-8">
-          <div class="tile">
+          <div class="">
             <div class="tile is-parent is-vertical">
               <article class="tile is-child box">
-                <!-- Put any content you want -->
+               
               </article>
               <article class="tile is-child box">
-                <!-- Put any content you want -->
+               
               </article>
             </div>
             <div class="tile is-parent">
               <article class="tile is-child box">
-                <!-- Put any content you want -->
+               
               </article>
             </div>
           </div>
           <div class="tile is-parent">
             <article class="tile is-child box">
-              <!-- Put any content you want -->
+             
             </article>
           </div>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <!-- Put any content you want -->
+           
           </article>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
@@ -383,6 +455,12 @@ export default {
         field: "",
         precision: "",
         value: ""
+      },
+      cacheNewSearch_PrimoArticles: {
+        field: "",
+        precision: "",
+        value: "",
+        fulltext:""
       },
 
       dataStore: {

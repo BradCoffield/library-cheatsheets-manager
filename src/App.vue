@@ -13,19 +13,37 @@
         </b-navbar-item>
       </template>
       <template slot="start">
-        <b-navbar-item>
-          <router-link to="/data-list">Data List</router-link>
-        </b-navbar-item>
-        <b-navbar-item>
-          <router-link to="/add-data">Add Data</router-link>
-        </b-navbar-item>
-        <b-navbar-item>
-          <router-link to="/add-cheatsheet">Add Cheatsheet</router-link>
-        </b-navbar-item>
+        <b-navbar-dropdown label="Cheatsheets">
+          <b-navbar-item>
+            <router-link to="/data-list">Cheatsheet List</router-link>
+          </b-navbar-item>
 
+          <b-navbar-item>
+            <router-link to="/add-cheatsheet">Add Cheatsheet</router-link>
+          </b-navbar-item>
+        </b-navbar-dropdown>
+        <b-navbar-dropdown label="Cached Searches">
+          <b-navbar-item>
+            <router-link to="/cached-searches-list">
+              Cached Searches List</router-link
+            >
+          </b-navbar-item>
+          <b-navbar-item>
+            <router-link to="add-cached-search"> Add Cached Search</router-link>
+          </b-navbar-item>
+        </b-navbar-dropdown>
+      </template>
+
+      <template slot="end">
         <b-navbar-item
-          ><router-link to="/login" v-if="!authenticated">Login</router-link>
-          <router-link to="/logout" v-else>Logout</router-link>
+          ><router-link to="/login" v-if="!authenticated"
+            ><b-button type="is-primary">
+              Login
+            </b-button></router-link
+          >
+          <router-link to="/logout" v-else
+            ><b-button type="is-primary" outlined>Logout</b-button></router-link
+          >
         </b-navbar-item>
       </template>
     </b-navbar>
