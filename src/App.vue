@@ -24,8 +24,8 @@
         </b-navbar-dropdown>
         <b-navbar-dropdown label="Cached Searches">
           <b-navbar-item>
-            <router-link to="/cached-searches-list">
-              Cached Searches List</router-link
+            <router-link to="/cached-searches-list-ebsco">
+              EBSCO Cached Searches List</router-link
             >
           </b-navbar-item>
           <b-navbar-item>

@@ -9,7 +9,7 @@ import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import AddCheatsheet from "./views/AddCheatsheet.vue"
 import AddCachedSearch from "./views/AddCachedSearch.vue"
-import CachedSearchesList from "./views/CachedSearchesList.vue" 
+import CachedSearchesList_Ebsco from "./views/CachedSearchesList_Ebsco.vue" 
 
 Vue.use(Router);
 
@@ -55,9 +55,9 @@ export default new Router({
       }
     },
     {
-      path: "/cached-searches-list",
-      name: "cached-searches-list",
-      component: CachedSearchesList,
+      path: "/cached-searches-list-ebsco",
+      name: "cached-searches-list-ebsco",
+      component: CachedSearchesList_Ebsco,
       meta: {
         protected: true
       }
