@@ -116,11 +116,11 @@ export default {
         .doc(id)
         .delete()
         .then(function() {
-          console.log(firebase.auth().user)
+          console.log(firebase.auth())
           console.log("Document successfully deleted!");
         })
         .catch(function(error) {
-               console.log(firebase.auth().user)
+               console.log( firebase.auth().currentUser.email)
           console.error("Error removing document: ", error);
         });
     }
