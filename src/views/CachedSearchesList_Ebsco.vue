@@ -21,7 +21,7 @@
         <b-table-column field="key" label="ID">
           {{ props.row.key }}
         </b-table-column>
-        <b-table-column field="searchTerm" label="Search Term">
+        <b-table-column field="searchTerm" label="Search Term(s)">
           {{ props.row.searchTerm }}
         </b-table-column>
         <b-table-column field="searchOptions" label="Search Options">
@@ -112,15 +112,17 @@ export default {
       this.$refs.table.toggleDetails(row);
     },
     deleteSearch(id) {
-     dbData.collection("ebsco-searches")
+      dbData
+        .collection("ebsco-searches")
         .doc(id)
         .delete()
         .then(function() {
-          console.log(firebase.auth())
+          // console.log("uid", firebase.auth().user.uid);
           console.log("Document successfully deleted!");
         })
         .catch(function(error) {
-               console.log( firebase.auth().currentUser.email)
+          // console.log("uid", firebase.auth().user.uid);
+          console.log(firebase.auth().currentUser.email);
           console.error("Error removing document: ", error);
         });
     }
