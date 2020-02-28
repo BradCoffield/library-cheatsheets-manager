@@ -34,13 +34,14 @@ import "./styles.scss";
 Vue.use(Buefy);
 
 Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  created() {
-    console.log("created!", config.authDomain);
-
-    firebase.initializeApp(config);
-  },
-  render: h => h(App)
-}).$mount("#app");
+firebase.initializeApp(config); //So, this is different from cuttlefish
+firebase.auth().onAuthStateChanged(() => {
+  let app = new Vue({
+    router,
+    created() {},
+    render: h => h(App)
+  }).$mount("#app");
+  if (!app) {
+    app()
+  }
+});
