@@ -32,6 +32,14 @@
             Edit
           </button>
         </b-table-column>
+        <b-table-column field="deleteButton" label="Delete Entry">
+          <button
+            class="button is-danger"
+            @click.stop="deleteCheatsheet(props.row.key)"
+          >
+            Delete
+          </button>
+        </b-table-column>
       </template>
 
       <template slot="detail" slot-scope="props">
@@ -62,13 +70,12 @@ export default {
       currentPage: 1,
       perPage: 5,
       errors: [],
-      ref: firebase.firestore().collection("Cheatsheets"), //name of the collection in firestore that contains all your real data
-      
+      ref: firebase.firestore().collection("Cheatsheets") //name of the collection in firestore that contains all your real data
     };
   },
   created() {
     this.isLoading = true;
-    
+
     dbData.collection("ebsco-searches").onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         console.log("hi", doc.id, doc.data());
@@ -101,6 +108,21 @@ export default {
         name: "edit-data",
         params: { id: id }
       });
+    },
+    deleteCheatsheet(id) {
+      console.log(id, "ey");
+      this.ref
+        .doc(id)
+        .delete()
+        .then(function() {
+          // console.log("uid", firebase.auth().user.uid);
+          console.log("Document successfully deleted!");
+        })
+        .catch(function(error) {
+          // console.log("uid", firebase.auth().user.uid);
+          console.log(firebase.auth().currentUser.email);
+          console.error("Error removing document: ", error);
+        });
     }
   }
 };
