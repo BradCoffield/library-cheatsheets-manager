@@ -181,7 +181,7 @@
                   <b-radio
                     v-model="cacheNewSearch_PrimoArticles.precision"
                     name="name1"
-                    native-value="Exact"
+                    native-value="exact"
                   >
                     Exact
                   </b-radio>
@@ -297,7 +297,7 @@
                   <b-radio
                     v-model="cacheNewSearch_PrimoBooks.precision"
                     name="name1"
-                    native-value="Exact"
+                    native-value="exact"
                   >
                     Exact
                   </b-radio>
@@ -528,7 +528,7 @@ export default {
   methods: {
     cacheSearch(target, optionsObject) {
       console.log("hi");
-      const urlBase = "https://rmc-proxy-server.herokuapp.com/api/";
+      const urlBase = "https://rmc-proxy-server.herokuapp.com/api";
       const field = optionsObject.field;
       const precision = optionsObject.precision;
       const value = optionsObject.value;
