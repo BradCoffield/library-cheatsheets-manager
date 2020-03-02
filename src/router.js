@@ -10,6 +10,8 @@ import Logout from "./views/Logout.vue";
 import AddCheatsheet from "./views/AddCheatsheet.vue"
 import AddCachedSearch from "./views/AddCachedSearch.vue"
 import CachedSearchesList_Ebsco from "./views/CachedSearchesList_Ebsco.vue" 
+import CachedSearchesList_PrimoBooks from "./views/CachedSearchesList_PrimoBooks.vue" 
+import CachedSearchesList_PrimoArticles from "./views/CachedSearchesList_PrimoArticles.vue" 
 
 Vue.use(Router);
 
@@ -58,6 +60,22 @@ export default new Router({
       path: "/cached-searches-list-ebsco",
       name: "cached-searches-list-ebsco",
       component: CachedSearchesList_Ebsco,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/cached-searches-list-primo-books",
+      name: "cached-searches-list-primo-books",
+      component: CachedSearchesList_PrimoBooks,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/cached-searches-list-primo-articles",
+      name: "cached-searches-list-primo-articles",
+      component: CachedSearchesList_PrimoArticles,
       meta: {
         protected: true
       }

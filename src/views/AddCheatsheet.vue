@@ -506,6 +506,7 @@ export default {
         .firestore()
         .collection("ebsco-searches")
         .onSnapshot(querySnapshot => {
+          this.ebscoCachedSearchesController=[];
           querySnapshot.forEach(doc => {
             // doc.data().searchTerm
             let rObj = {};
@@ -520,6 +521,7 @@ export default {
         .firestore()
         .collection("primo-book-searches")
         .onSnapshot(querySnapshot => {
+          this.primoBookSearchesController = [];
           querySnapshot.forEach(doc => {
             // doc.data().searchTerm
             // console.log(doc.data());
@@ -531,10 +533,12 @@ export default {
         });
     },
     getCached_PrimoArticles() {
+      // this.primoArticleSearchesController = [];
       firebase
         .firestore()
         .collection("primo-article-searches")
         .onSnapshot(querySnapshot => {
+              this.primoArticleSearchesController = [];
           querySnapshot.forEach(doc => {
             // doc.data().searchTerm
             // console.log(doc.data());
@@ -570,11 +574,22 @@ export default {
           `${urlBase}/cache-ebsco-search/${value}?scholarly=${scholarly}&fulltext=${fulltext}&daterange=${daterange}`
         );
       }
-      function runCache(url) {
+      function runCache(url, target) {
         console.log("yayay");
         fetch(url)
           .then(res => res.text())
-          .then(body => console.log(body, "eh!"));
+          .then(body => console.log(body, "eh!"))
+          .then(() => {
+            if (target == "primo-book-search") {
+              this.getCached_PrimoBooks();
+            }
+            if (target == "primo-article-search") {
+              this.getCached_PrimoArticles();
+            }
+            if (target == "ebsco-search") {
+              this.getCached_Ebsco();
+            }
+          });
       }
     },
     citationStylesWanted() {

@@ -29,6 +29,16 @@
             >
           </b-navbar-item>
           <b-navbar-item>
+            <router-link to="/cached-searches-list-primo-books">
+              Primo Books Cached Searches List</router-link
+            >
+          </b-navbar-item>
+          <b-navbar-item>
+            <router-link to="/cached-searches-list-primo-articles">
+              Primo Articles Cached Searches List</router-link
+            >
+          </b-navbar-item>
+          <b-navbar-item>
             <router-link to="add-cached-search"> Add Cached Search</router-link>
           </b-navbar-item>
         </b-navbar-dropdown>
