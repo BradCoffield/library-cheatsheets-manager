@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="title">Data List</h2>
+    <h2 class="title">Cached Primo Articles Searches List</h2>
     <!-- <template slot-scope="props"> -->
     <b-table
       :data="data"
@@ -21,24 +21,23 @@
         <b-table-column field="key" label="ID">
           {{ props.row.key }}
         </b-table-column>
-        <b-table-column field="name" label="Name">
-          {{ props.row.name }}
+        <b-table-column field="searchTerm" label="Search Term(s)">
+          {{ props.row.searchTerm }}
         </b-table-column>
-        <b-table-column field="url" label="URL">
-          {{ props.row.url }}
+        <b-table-column field="searchOptions" label="Search Options">
+          {{ props.row.searchOptions }}
         </b-table-column>
-        <b-table-column field="editButton" label="Edit Entry">
-          <button class="button is-info" @click.stop="editData(props.row.key)">
-            Edit
-          </button>
+        <b-table-column field="resultsNumber" label="# of Results">
+          {{ props.row.resultsLength }}
         </b-table-column>
-        <b-table-column field="deleteButton" label="Delete Entry">
-          <button
+        <b-table-column field="editButton" label="Delete Search">
+          <b-button
             class="button is-danger"
-            @click.stop="deleteCheatsheet(props.row.key)"
+            outlined
+            @click.stop="deleteSearch(props.row.key)"
           >
             Delete
-          </button>
+          </b-button>
         </b-table-column>
       </template>
 
@@ -53,7 +52,6 @@
     <!-- </template> -->
   </section>
 </template>
-
 <script>
 import firebase from "firebase";
 import router from "../router";
@@ -66,52 +64,56 @@ export default {
       defaultOpenedDetails: [1],
       isPaginated: true,
       isPaginationSimple: false,
-      paginationPosition: "bottom",
+      paginationPosition: "top",
       currentPage: 1,
-      perPage: 5,
+      perPage: 25,
       errors: [],
-      ref: firebase.firestore().collection("Cheatsheets") //name of the collection in firestore that contains all your real data
+      ref: firebase.firestore().collection("Cheatsheets"),
+      ref2: firebase.firestore().collection("primo-article-searches")
     };
   },
   created() {
     this.isLoading = true;
 
-    dbData.collection("ebsco-searches").onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        console.log("hi", doc.id, doc.data());
-      });
-    });
-    this.ref.onSnapshot(querySnapshot => {
+   this.ref2.onSnapshot(querySnapshot => {
       this.data = [];
       querySnapshot.forEach(doc => {
-        console.log(doc.id, doc.data());
+        // console.log("hi", doc.id, doc.data());
 
-        //grabs the individual pieces of our individual records. So they can be table-ified
         this.data.push({
           key: doc.id,
-          name: doc.data().name,
-          description: doc.data().description,
-          url: doc.data().url,
-
-          categories: doc.data().categories
+          searchTerm: doc.data().searchTerm,
+          results: doc.data().results,
+          resultsLength: doc.data().results.length,
+          searchOptions: doc.data().searchOptions
         });
       });
       this.isLoading = false;
     });
+    // this.ref.onSnapshot(querySnapshot => {
+    //   this.data = [];
+    //   querySnapshot.forEach(doc => {
+    //     console.log(doc.id, doc.data());
+
+    //     //grabs the individual pieces of our individual records. So they can be table-ified
+    //     this.data.push({
+    //       key: doc.id,
+    //       searchTerm: doc.data().searchTerm,
+    //       results: doc.data().results,
+    //       resultsLength: doc.data().results.length,
+    //       searchOptions: doc.data().searchOptions,
+
+    //     });
+    //   });
+    //   this.isLoading = false;
+    // });
   },
   methods: {
     toggle(row) {
       this.$refs.table.toggleDetails(row);
     },
-    editData(id) {
-      router.push({
-        name: "edit-data",
-        params: { id: id }
-      });
-    },
-    deleteCheatsheet(id) {
-      console.log(id, "ey");
-      this.ref
+    deleteSearch(id) {
+      this.ref2
         .doc(id)
         .delete()
         .then(function() {
@@ -127,18 +129,3 @@ export default {
   }
 };
 </script>
-
-<style>
-#table-goodFor {
-  font-size: 12px;
-}
-/* .table.is-striped tbody tr:not(.is-selected):nth-child(2n) {
-  background-color: #ececec !important;
-} */
-.mdi.mdi-chevron-right {
-  color: goldenrod;
-}
-section {
-  margin-top: 3rem;
-}
-</style>

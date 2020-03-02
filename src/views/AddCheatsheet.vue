@@ -136,7 +136,7 @@
           >
         </div>
       </div>
-<!-- -----------------------------------------primo article search----------------------------------------------->
+      <!-- -----------------------------------------primo article search----------------------------------------------->
       <div class="">
         <div class="block-block">
           <h3 class="title is-3">Primo Article Search</h3>
@@ -169,84 +169,90 @@
             </ul>
           </b-field>
 
-             <b-field label="Cache a new search"> </b-field>
+          <b-field label="Cache a new search"> </b-field>
           <div class="block">
             <b-field label="Search term(s)">
               <b-input v-model="cacheNewSearch_PrimoArticles.value"></b-input>
             </b-field>
-  
-              <div class="block">
-                Precision: 
-               
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.precision"
-                    name="name1"
-                    native-value="Exact"
-                  >
-                    Exact
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.precision"
-                    name="name1"
-                    native-value="begins_with"
-                  >
-                    Begins with
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.precision"
-                    name="name1"
-                    native-value="contains"
-                  >
-                    Contains
-                  </b-radio>
-                </div>
-          
- 
-              <!-- ********************* -->
-          
-                <div class="block">
-                  Field: 
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.field"
-                    name="name"
-                    native-value="any"
-                  >
-                    Any
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.field"
-                    name="name"
-                    native-value="title"
-                  >
-                    Title
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.field"
-                    name="name"
-                    native-value="creator"
-                  >
-                    Creator (author)
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoArticles.field"
-                    name="name"
-                    native-value="sub"
-                  >
-                    Subject
-                  </b-radio>
-             
-                
-              </div> <div class="block">   <b-checkbox v-model="cacheNewSearch_PrimoArticles.fulltext">
-              Full-text only
-            </b-checkbox></div>
-          <!-- <b-button @click="">Click Me</b-button> -->
-          <b-button
-            @click="cacheSearch('primo-article-search', cacheNewSearch_PrimoArticles)"
-            type="is-primary"
-            outlined
-            >Cache New Search</b-button
-          >
-        </div></div>
+
+            <div class="block">
+              Precision:
+
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.precision"
+                name="name1"
+                native-value="exact"
+              >
+                Exact
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.precision"
+                name="name1"
+                native-value="begins_with"
+              >
+                Begins with
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.precision"
+                name="name1"
+                native-value="contains"
+              >
+                Contains
+              </b-radio>
+            </div>
+
+            <!-- ********************* -->
+
+            <div class="block">
+              Field:
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.field"
+                name="name"
+                native-value="any"
+              >
+                Any
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.field"
+                name="name"
+                native-value="title"
+              >
+                Title
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.field"
+                name="name"
+                native-value="creator"
+              >
+                Creator (author)
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoArticles.field"
+                name="name"
+                native-value="sub"
+              >
+                Subject
+              </b-radio>
+            </div>
+            <div class="block">
+              <b-checkbox v-model="cacheNewSearch_PrimoArticles.fulltext">
+                Full-text only
+              </b-checkbox>
+            </div>
+            <!-- <b-button @click="">Click Me</b-button> -->
+            <b-button
+              @click="
+                cacheSearch(
+                  'primo-article-search',
+                  cacheNewSearch_PrimoArticles
+                )
+              "
+              type="is-primary"
+              outlined
+              >Cache New Search</b-button
+            >
+          </div>
+        </div>
       </div>
 
       <div class="">
@@ -290,72 +296,66 @@
             <b-field label="Search term(s)">
               <b-input v-model="cacheNewSearch_PrimoBooks.value"></b-input>
             </b-field>
-  
-              <div class="block">
-                Precision: 
-               
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.precision"
-                    name="name1"
-                    native-value="Exact"
-                  >
-                    Exact
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.precision"
-                    name="name1"
-                    native-value="begins_with"
-                  >
-                    Begins with
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.precision"
-                    name="name1"
-                    native-value="contains"
-                  >
-                    Contains
-                  </b-radio>
-                </div>
-          
- 
-              <!-- ********************* -->
-          
-                <div class="block">
-                  Field: 
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.field"
-                    name="name"
-                    native-value="any"
-                  >
-                    Any
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.field"
-                    name="name"
-                    native-value="title"
-                  >
-                    Title
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.field"
-                    name="name"
-                    native-value="creator"
-                  >
-                    Creator (author)
-                  </b-radio>
-                  <b-radio
-                    v-model="cacheNewSearch_PrimoBooks.field"
-                    name="name"
-                    native-value="sub"
-                  >
-                    Subject
-                  </b-radio>
-             
-                
-              </div>
-         
-           
-            
+
+            <div class="block">
+              Precision:
+
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.precision"
+                name="name1"
+                native-value="exact"
+              >
+                Exact
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.precision"
+                name="name1"
+                native-value="begins_with"
+              >
+                Begins with
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.precision"
+                name="name1"
+                native-value="contains"
+              >
+                Contains
+              </b-radio>
+            </div>
+
+            <!-- ********************* -->
+
+            <div class="block">
+              Field:
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.field"
+                name="name"
+                native-value="any"
+              >
+                Any
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.field"
+                name="name"
+                native-value="title"
+              >
+                Title
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.field"
+                name="name"
+                native-value="creator"
+              >
+                Creator (author)
+              </b-radio>
+              <b-radio
+                v-model="cacheNewSearch_PrimoBooks.field"
+                name="name"
+                native-value="sub"
+              >
+                Subject
+              </b-radio>
+            </div>
           </div>
           <!-- <b-button @click="">Click Me</b-button> -->
           <b-button
@@ -387,7 +387,7 @@
           ></b-field>
         </div>
       </div>
-<!-- 
+      <!-- 
       <div class="tile is-ancestor">
         <div class="tile is-vertical is-8">
           <div class="">
@@ -433,7 +433,7 @@
 <script>
 import firebase from "firebase";
 import router from "../router";
-import dbData from "../Firebase";
+// import dbData from "../Firebase";
 const fetch = require("node-fetch");
 // import shortid from "shortid";
 
@@ -460,7 +460,7 @@ export default {
         field: "",
         precision: "",
         value: "",
-        fulltext:""
+        fulltext: ""
       },
 
       dataStore: {
@@ -486,35 +486,10 @@ export default {
     };
   },
   created() {
-    dbData.collection("ebsco-searches").onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // doc.data().searchTerm
-        let rObj = {};
-        rObj.name = doc.data().searchTerm;
-        rObj.selected = false;
-        this.ebscoCachedSearchesController.push(rObj);
-      });
-    });
-    dbData.collection("primo-article-searches").onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // doc.data().searchTerm
-        // console.log(doc.data());
-        let rObj = {};
-        rObj.name = doc.data().searchTerm;
-        rObj.selected = false;
-        this.primoArticleSearchesController.push(rObj);
-      });
-    });
-    dbData.collection("primo-book-searches").onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // doc.data().searchTerm
-        // console.log(doc.data());
-        let rObj = {};
-        rObj.name = doc.data().searchTerm;
-        rObj.selected = false;
-        this.primoBookSearchesController.push(rObj);
-      });
-    });
+    this.getCached_Ebsco();
+    this.getCached_PrimoBooks();
+    this.getCached_PrimoArticles();
+
     this.citationStylesWanted();
 
     // this.cacheSearch("ebsco-search", {
@@ -526,13 +501,61 @@ export default {
     // this.cacheSearch("primo-book-search", {field:"any", precision:"contains", value:"Javascript"})
   },
   methods: {
+    getCached_Ebsco() {
+      firebase
+        .firestore()
+        .collection("ebsco-searches")
+        .onSnapshot(querySnapshot => {
+          this.ebscoCachedSearchesController=[];
+          querySnapshot.forEach(doc => {
+            // doc.data().searchTerm
+            let rObj = {};
+            rObj.name = doc.data().searchTerm;
+            rObj.selected = false;
+            this.ebscoCachedSearchesController.push(rObj);
+          });
+        });
+    },
+    getCached_PrimoBooks() {
+      firebase
+        .firestore()
+        .collection("primo-book-searches")
+        .onSnapshot(querySnapshot => {
+          this.primoBookSearchesController = [];
+          querySnapshot.forEach(doc => {
+            // doc.data().searchTerm
+            // console.log(doc.data());
+            let rObj = {};
+            rObj.name = doc.data().searchTerm;
+            rObj.selected = false;
+            this.primoBookSearchesController.push(rObj);
+          });
+        });
+    },
+    getCached_PrimoArticles() {
+      // this.primoArticleSearchesController = [];
+      firebase
+        .firestore()
+        .collection("primo-article-searches")
+        .onSnapshot(querySnapshot => {
+              this.primoArticleSearchesController = [];
+          querySnapshot.forEach(doc => {
+            // doc.data().searchTerm
+            // console.log(doc.data());
+            let rObj = {};
+            rObj.name = doc.data().searchTerm;
+            rObj.selected = false;
+            this.primoArticleSearchesController.push(rObj);
+          });
+        });
+    },
     cacheSearch(target, optionsObject) {
       console.log("hi");
-      const urlBase = "https://rmc-proxy-server.herokuapp.com/api/";
+      const urlBase = "https://rmc-proxy-server.herokuapp.com/api";
       const field = optionsObject.field;
       const precision = optionsObject.precision;
       const value = optionsObject.value;
-      const fulltext = optionsObject.fulltext;
+      const fulltext = optionsObject.fulltext || false;
       const scholarly = optionsObject.scholarly;
       const daterange = optionsObject.daterange;
       if (target == "primo-book-search") {
@@ -551,11 +574,22 @@ export default {
           `${urlBase}/cache-ebsco-search/${value}?scholarly=${scholarly}&fulltext=${fulltext}&daterange=${daterange}`
         );
       }
-      function runCache(url) {
+      function runCache(url, target) {
         console.log("yayay");
         fetch(url)
           .then(res => res.text())
-          .then(body => console.log(body));
+          .then(body => console.log(body, "eh!"))
+          .then(() => {
+            if (target == "primo-book-search") {
+              this.getCached_PrimoBooks();
+            }
+            if (target == "primo-article-search") {
+              this.getCached_PrimoArticles();
+            }
+            if (target == "ebsco-search") {
+              this.getCached_Ebsco();
+            }
+          });
       }
     },
     citationStylesWanted() {
