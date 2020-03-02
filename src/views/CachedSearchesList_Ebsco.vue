@@ -68,13 +68,14 @@ export default {
       currentPage: 1,
       perPage: 25,
       errors: [],
-      ref: firebase.firestore().collection("Cheatsheets")
+      ref: firebase.firestore().collection("Cheatsheets"),
+      ref2: firebase.firestore().collection("ebsco-searches")
     };
   },
   created() {
     this.isLoading = true;
 
-    dbData.collection("ebsco-searches").onSnapshot(querySnapshot => {
+   this.ref2.onSnapshot(querySnapshot => {
       this.data = [];
       querySnapshot.forEach(doc => {
         // console.log("hi", doc.id, doc.data());
@@ -112,8 +113,7 @@ export default {
       this.$refs.table.toggleDetails(row);
     },
     deleteSearch(id) {
-      dbData
-        .collection("ebsco-searches")
+      this.ref2
         .doc(id)
         .delete()
         .then(function() {
