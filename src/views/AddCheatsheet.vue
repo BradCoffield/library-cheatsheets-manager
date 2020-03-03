@@ -285,11 +285,11 @@
             </ul>
           </b-field>
 
-          <b-field label="Cache a new search">
+          <!-- <b-field label="Cache a new search">
             ttthis will be an input with a run button. will talk to proxy server
             run the new search and refresh the above area so its then available
             to choose for this form.
-          </b-field>
+          </b-field> -->
 
           <b-field label="Cache a new search"> </b-field>
           <div class="block">
