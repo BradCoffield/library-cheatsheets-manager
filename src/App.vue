@@ -42,6 +42,14 @@
             <router-link to="add-cached-search"> Add Cached Search</router-link>
           </b-navbar-item>
         </b-navbar-dropdown>
+        <b-navbar-dropdown label="Weblinks">
+          <b-navbar-item>
+            <router-link to="add-weblink"> Add Weblink</router-link>
+          </b-navbar-item>
+          <b-navbar-item>
+            <router-link to="manage-weblinks">Manage Weblinks</router-link>
+          </b-navbar-item>
+        </b-navbar-dropdown>
       </template>
 
       <template slot="end">
