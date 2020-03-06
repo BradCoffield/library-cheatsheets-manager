@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>Add Cached Search</h2>
+  <div class="container">
+    <h2 class="title is-2">Add Cached Search</h2>
     <b-field label="Cache a new search - EBSCO"> </b-field>
     <div class="block">
       <b-field label="Search term(s)">
@@ -188,9 +188,9 @@
   </div>
 </template>
 <script>
-import firebase from "firebase";
-import router from "../router";
-import dbData from "../Firebase";
+// import firebase from "firebase";
+// import router from "../router";
+// import dbData from "../Firebase";
 
 export default {
   data() {
@@ -215,7 +215,19 @@ export default {
       }
     };
   },
+  created() {
+    this.successNotifcation("YES");
+  },
   methods: {
+    successNotifcation(message) {
+      this.$buefy.notification.open({
+        duration: 5000,
+        message: message,
+        position: "is-bottom",
+        type: "is-success",
+        hasIcon: true
+      });
+    },
     cacheSearch(target, optionsObject) {
       console.log("hi");
       const urlBase = "https://rmc-proxy-server.herokuapp.com/api";
@@ -236,26 +248,16 @@ export default {
         );
       }
       if (target == "ebsco-search") {
-        console.log("ebsco-search");
         runCache(
           `${urlBase}/cache-ebsco-search/${value}?scholarly=${scholarly}&fulltext=${fulltext}&daterange=${daterange}`
         );
       }
-      function runCache(url, target) {
+      function runCache(url) {
         console.log("yayay");
         fetch(url)
           .then(res => res.text())
-          .then(body => console.log(body, "eh!"))
-          .then(() => {
-            if (target == "primo-book-search") {
-              this.getCached_PrimoBooks();
-            }
-            if (target == "primo-article-search") {
-              this.getCached_PrimoArticles();
-            }
-            if (target == "ebsco-search") {
-              this.getCached_Ebsco();
-            }
+          .then(function(body) {
+            console.log(body, "eh!");
           });
       }
     }
