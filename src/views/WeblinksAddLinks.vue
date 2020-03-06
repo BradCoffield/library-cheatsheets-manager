@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2 class="">Add new weblink</h2>
+  <div class="container">
+    <h2 class="title">Add new weblink</h2>
 
     <div class="block">
       <b-field label="Name">
@@ -21,12 +21,10 @@
           type="textarea"
         ></b-input>
       </b-field>
-      <b-field label="Attach to existing cheatsheets">
-        checkboxes here, similar to how database topics work. Need to add to a
-        top level array AssociatedSubjects - if I use firestore merge will I get
-        dupes? Will it matter if I do?
-      </b-field>
-      <b-field label="Existing Cheatsheets - Select to add this link">
+
+      <b-field
+        label="Existing Cheatsheets - Select to associate with this weblink"
+      >
         <ul v-if="existingCheatsheetsController.length > 0">
           <li
             style="display:inline"
