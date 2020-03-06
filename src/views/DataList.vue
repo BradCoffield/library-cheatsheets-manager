@@ -21,7 +21,7 @@
         <b-table-column field="key" label="ID">
           {{ props.row.key }}
         </b-table-column>
-        <b-table-column field="name" label="Name">
+        <b-table-column field="name" label="Name" searchable="true">
           {{ props.row.name }}
         </b-table-column>
         <b-table-column field="url" label="URL">
