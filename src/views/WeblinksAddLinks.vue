@@ -4,7 +4,11 @@
 
     <div class="block">
       <b-field label="Name">
-        <b-input v-model="addWeblink.name" type="text" required></b-input>
+        <b-input
+          v-model="addWeblink.displayName"
+          type="text"
+          required
+        ></b-input>
       </b-field>
       <b-field label="URL">
         <!-- <b-input placeholder="URL" type="url"></b-input> -->
@@ -18,7 +22,29 @@
         ></b-input>
       </b-field>
       <b-field label="Attach to existing cheatsheets">
-        checkboxes here, similar to how database topics work
+        checkboxes here, similar to how database topics work. Need to add to a
+        top level array AssociatedSubjects - if I use firestore merge will I get
+        dupes? Will it matter if I do?
+      </b-field>
+      <b-field label="Existing Cheatsheets - Select to add this link">
+        <ul v-if="existingCheatsheetsController.length > 0">
+          <li
+            style="display:inline"
+            v-for="(item, index) in existingCheatsheetsController"
+            :key="index"
+          >
+            <button
+              class="button lil-space-here"
+              :class="{
+                'is-success': item.selected,
+                'is-text': !item.selected
+              }"
+              @click="item.selected = !item.selected"
+            >
+              {{ item.name }}
+            </button>
+          </li>
+        </ul>
       </b-field>
     </div>
 
@@ -29,26 +55,59 @@
 </template>
 <script>
 import firebase from "firebase";
-import router from "../router";
+// import router from "../router";
 import shortid from "shortid";
 export default {
   data() {
     return {
       data: [],
-      ref: firebase.firestore().collection("Weblinks"),
+      existingCheatsheets: [],
+      existingCheatsheetsController: [],
+      refWeblinks: firebase.firestore().collection("Weblinks"),
+      ref: firebase.firestore().collection("Cheatsheets"),
+
       addWeblink: {
-        name: "",
+        displayName: "",
         url: "",
         description: "",
-        topicalAreas: ""
+        AssociatedSubjects: []
       }
     };
+  },
+  created() {
+    this.ref
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          this.existingCheatsheets.push(doc.id);
+        });
+        console.log(this.existingCheatsheets);
+      })
+      .then(() => {
+        this.existingCheatsheetsController = this.existingCheatsheets.map(
+          item => {
+            let rObj = {};
+            rObj.name = item;
+            rObj.selected = false;
+            // console.log(rObj);
+            return rObj;
+          }
+        );
+      })
+      .catch(err => {
+        console.log("Error getting documents", err);
+      });
   },
   methods: {
     submitNewWeblink() {
       let key = shortid.generate();
       console.log(key);
-      this.ref.doc(key).set(this.addWeblink, { merge: true });
+      this.existingCheatsheetsController.forEach(q => {
+        if (q.selected === true) {
+          this.addWeblink.AssociatedSubjects.push(q.name);
+        }
+      });
+      this.refWeblinks.doc(key).set(this.addWeblink, { merge: true });
     }
   }
 };
