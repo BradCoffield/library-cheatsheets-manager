@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <h2 class="title">Add Cheatsheet</h2>
+    <h2 class="title is-2">Add Cheatsheet</h2>
     <section>
       <b-field label="Name">
         <b-input v-model="dataStore.name"></b-input>
       </b-field>
 
-      <h2 class="title is-2">Available Blocks</h2>
+      <h2 class="title is-3">Available Blocks</h2>
 
       <div class="">
         <div class="block-block">
@@ -506,7 +506,7 @@ export default {
         .firestore()
         .collection("ebsco-searches")
         .onSnapshot(querySnapshot => {
-          this.ebscoCachedSearchesController=[];
+          this.ebscoCachedSearchesController = [];
           querySnapshot.forEach(doc => {
             // doc.data().searchTerm
             let rObj = {};
@@ -538,7 +538,7 @@ export default {
         .firestore()
         .collection("primo-article-searches")
         .onSnapshot(querySnapshot => {
-              this.primoArticleSearchesController = [];
+          this.primoArticleSearchesController = [];
           querySnapshot.forEach(doc => {
             // doc.data().searchTerm
             // console.log(doc.data());

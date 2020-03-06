@@ -17,7 +17,7 @@
       <b-field label="Description">
         <b-input
           v-model="addWeblink.description"
-          maxlength="200"
+          maxlength="500"
           type="textarea"
         ></b-input>
       </b-field>
