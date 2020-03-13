@@ -5,6 +5,7 @@ import Home from "./views/Home.vue";
 import DataList from "./views/DataList.vue";
 // import AddData from "./views/AddData.vue";
 import EditData from "./views/EditData.vue";
+import EditCheatsheet from "./views/EditCheatsheet.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import AddCheatsheet from "./views/AddCheatsheet.vue";
@@ -46,6 +47,14 @@ export default new Router({
       path: "/edit-data",
       name: "edit-data",
       component: EditData,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/edit-cheatsheet",
+      name: "edit-cheatsheet",
+      component: EditCheatsheet,
       meta: {
         protected: true
       }

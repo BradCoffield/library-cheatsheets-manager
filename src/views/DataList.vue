@@ -78,13 +78,13 @@ export default {
 
     dbData.collection("ebsco-searches").onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log("hi", doc.id, doc.data());
+        // console.log("hi", doc.id, doc.data());
       });
     });
     this.ref.onSnapshot(querySnapshot => {
       this.data = [];
       querySnapshot.forEach(doc => {
-        console.log(doc.id, doc.data());
+        // console.log(doc.id, doc.data());
 
         //grabs the individual pieces of our individual records. So they can be table-ified
         this.data.push({
@@ -105,7 +105,7 @@ export default {
     },
     editData(id) {
       router.push({
-        name: "edit-data",
+        name: "edit-cheatsheet",
         params: { id: id }
       });
     },
