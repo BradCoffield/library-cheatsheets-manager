@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="title is-2">Add Cheatsheet</h2>
+    <h2 class="title is-2">Edit Cheatsheet</h2>
     <section>
       <b-field label="Name">
         <b-input v-model="dataStore.name"></b-input>
@@ -489,12 +489,8 @@ export default {
   },
   created() {
     console.log(this.key);
-    /* these populate the possible cached searches and all citation styles available */
-    // this.getCached_Ebsco();
-    // this.getCached_PrimoBooks();
-    // this.getCached_PrimoArticles();
-    // this.citationStylesWanted();
 
+    /* these populate the possible cached searches and all citation styles available */
     Promise.all([
       this.getCached_Ebsco(),
       this.getCached_PrimoBooks(),
@@ -503,6 +499,7 @@ export default {
       this.getSingleCheatsheet()
     ]).then(function() {
       console.log("Ey there friend");
+      this.getSingleCheatsheet();
     });
   },
   methods: {
@@ -510,7 +507,7 @@ export default {
       this.ref
         .doc(this.key)
         .get()
-        .then(doc => {
+        .then(function(doc){
           if (doc.exists) {
             this.cheatsheetData = doc.data();
             // console.log("Document data:", doc.data());
