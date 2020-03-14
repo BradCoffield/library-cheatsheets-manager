@@ -497,20 +497,21 @@ export default {
       this.getCached_PrimoArticles(),
       this.citationStylesWanted(),
       this.getSingleCheatsheet()
-    ]).then(function() {
+    ]).then(()=> {
       console.log("Ey there friend");
       this.getSingleCheatsheet();
     });
   },
   methods: {
-    getSingleCheatsheet() {
+    getSingleCheatsheet: function() {
       this.ref
         .doc(this.key)
         .get()
-        .then(function(doc){
+        .then(doc => {
           if (doc.exists) {
+            console.log("Document data:", doc.data());
+            console.log("here");
             this.cheatsheetData = doc.data();
-            // console.log("Document data:", doc.data());
           } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
