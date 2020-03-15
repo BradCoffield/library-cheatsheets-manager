@@ -467,9 +467,9 @@ export default {
         name: "",
         citation_styles: {
           metadata: {
-            useInProduction: false,
-            fullWidth: false
-          }
+            useInProduction: false
+          },
+          toUse: []
         },
         databases: {
           metadata: { useInProduction: false }
@@ -620,32 +620,42 @@ export default {
     },
     sendUpdate(evt) {
       evt.preventDefault();
+
       this.iteratorForPrep("ebscoCachedSearchesController");
       this.iteratorForPrep("primoArticleSearchesController");
       this.iteratorForPrep("primoBookSearchesController");
+      this.iteratorForPrep("citationStylesController");
       this.ref.doc(this.dataStore.name).set(this.dataStore, { merge: true });
     },
     iteratorForPrep: function(targetArray) {
       console.log(targetArray);
+      let self = this;
 
       if (targetArray == "ebscoCachedSearchesController") {
-        this.ebscoCachedSearchesController.forEach(function(i) {
+        self.ebscoCachedSearchesController.forEach(function(i) {
           if (i.selected == true) {
-            this.dataStore.ebsco_api_a9h.push[i.id];
+            self.dataStore.ebsco_api_a9h.toUse.push(i.id);
           }
         });
       }
       if (targetArray == "primoArticleSearchesController") {
-        this.primoArticleSearchesController.forEach(function(i) {
+        self.primoArticleSearchesController.forEach(function(i) {
           if (i.selected == true) {
-            this.dataStore.primo_article_searches.push[i.id];
+            self.dataStore.primo_article_searches.toUse.push(i.id);
           }
         });
       }
       if (targetArray == "primoBookSearchesController") {
-        this.primoBookSearchesController.forEach(function(i) {
+        self.primoBookSearchesController.forEach(function(i) {
           if (i.selected == true) {
-            this.dataStore.primo_book_searches.push[i.id];
+            self.dataStore.primo_book_searches.toUse.push(i.id);
+          }
+        });
+      }
+      if (targetArray == "citationStylesController") {
+        self.citationStylesController.forEach(function(i) {
+          if (i.selected == true) {
+            self.dataStore.citation_styles.toUse.push(i.name);
           }
         });
       }
