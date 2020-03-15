@@ -475,9 +475,15 @@ export default {
           metadata: { useInProduction: false }
         },
         dpla: { metadata: { useInProduction: false }, topics: "" },
-        ebsco_api_a9h: { metadata: { useInProduction: false } },
-        primo_article_searches: { metadata: { useInProduction: false } },
-        primo_book_searches: { metadata: { useInProduction: false } },
+        ebsco_api_a9h: { metadata: { useInProduction: false }, toUse: [] },
+        primo_article_searches: {
+          metadata: { useInProduction: false },
+          toUse: []
+        },
+        primo_book_searches: {
+          metadata: { useInProduction: false },
+          toUse: []
+        },
         primo_quick_search: { metadata: { useInProduction: false } },
         weblinks_block: { metadata: { useInProduction: false } }
       },
@@ -511,6 +517,7 @@ export default {
             // doc.data().searchTerm
             let rObj = {};
             rObj.name = doc.data().searchTerm;
+            rObj.id = doc.id;
             rObj.selected = false;
             this.ebscoCachedSearchesController.push(rObj);
           });
@@ -527,6 +534,7 @@ export default {
             // console.log(doc.data());
             let rObj = {};
             rObj.name = doc.data().searchTerm;
+            rObj.id = doc.id;
             rObj.selected = false;
             this.primoBookSearchesController.push(rObj);
           });
@@ -544,6 +552,7 @@ export default {
             // console.log(doc.data());
             let rObj = {};
             rObj.name = doc.data().searchTerm;
+            rObj.id = doc.id;
             rObj.selected = false;
             this.primoArticleSearchesController.push(rObj);
           });
@@ -611,7 +620,35 @@ export default {
     },
     sendUpdate(evt) {
       evt.preventDefault();
+      this.iteratorForPrep("ebscoCachedSearchesController");
+      this.iteratorForPrep("primoArticleSearchesController");
+      this.iteratorForPrep("primoBookSearchesController");
       this.ref.doc(this.dataStore.name).set(this.dataStore, { merge: true });
+    },
+    iteratorForPrep: function(targetArray) {
+      console.log(targetArray);
+
+      if (targetArray == "ebscoCachedSearchesController") {
+        this.ebscoCachedSearchesController.forEach(function(i) {
+          if (i.selected == true) {
+            this.dataStore.ebsco_api_a9h.push[i.id];
+          }
+        });
+      }
+      if (targetArray == "primoArticleSearchesController") {
+        this.primoArticleSearchesController.forEach(function(i) {
+          if (i.selected == true) {
+            this.dataStore.primo_article_searches.push[i.id];
+          }
+        });
+      }
+      if (targetArray == "primoBookSearchesController") {
+        this.primoBookSearchesController.forEach(function(i) {
+          if (i.selected == true) {
+            this.dataStore.primo_book_searches.push[i.id];
+          }
+        });
+      }
     }
   }
 };

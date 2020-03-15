@@ -497,10 +497,12 @@ export default {
       this.getCached_PrimoArticles(),
       this.citationStylesWanted(),
       this.getSingleCheatsheet()
-    ]).then(()=> {
-      console.log("Ey there friend");
-      this.getSingleCheatsheet();
-    });
+    ])
+      .then(() => {
+        console.log("Ey there friend");
+        this.getSingleCheatsheet();
+      })
+      .then(() => {});
   },
   methods: {
     getSingleCheatsheet: function() {
@@ -509,12 +511,14 @@ export default {
         .get()
         .then(doc => {
           if (doc.exists) {
-            console.log("Document data:", doc.data());
+            // console.log("Document data:", doc.data());
             console.log("here");
             this.cheatsheetData = doc.data();
+            return true;
           } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
+            return false;
           }
         })
         .catch(function(error) {
@@ -531,6 +535,7 @@ export default {
             // doc.data().searchTerm
             let rObj = {};
             rObj.name = doc.data().searchTerm;
+             rObj.id = doc.id;
             rObj.selected = false;
             this.ebscoCachedSearchesController.push(rObj);
           });
@@ -548,6 +553,7 @@ export default {
             // console.log(doc.data());
             let rObj = {};
             rObj.name = doc.data().searchTerm;
+             rObj.id = doc.id;
             rObj.selected = false;
             this.primoBookSearchesController.push(rObj);
           });
@@ -566,6 +572,7 @@ export default {
             // console.log(doc.data());
             let rObj = {};
             rObj.name = doc.data().searchTerm;
+             rObj.id = doc.id;
             rObj.selected = false;
             this.primoArticleSearchesController.push(rObj);
           });
@@ -583,6 +590,7 @@ export default {
       const daterange = optionsObject.daterange;
       if (target == "primo-book-search") {
         runCache(
+        console.log("cacheSearch -> Cache", Cache)
           `${urlBase}/cache-primo-book-search/${field}/${precision}/${value}`
         );
       }
