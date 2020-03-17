@@ -436,17 +436,44 @@ import router from "../router";
 // import dbData from "../Firebase";
 const fetch = require("node-fetch");
 // import shortid from "shortid";
+import _ from "lodash";
 
 export default {
   name: "EditCheatsheet",
   data() {
     return {
       key: this.$route.params.id,
-      cheatsheetData: {},
+      ref: firebase.firestore().collection("Cheatsheets"), //name of the collection in firestore that contains all your real data
+      ref2: firebase.firestore().collection("CitationStylesRepository"),
       ebscoCachedSearchesController: [],
       primoArticleSearchesController: [],
       primoBookSearchesController: [],
       citationStylesController: [],
+
+      dataStore: {
+        name: "",
+        citation_styles: {
+          metadata: {
+            useInProduction: false,
+            fullWidth: false
+          }
+        },
+        databases: {
+          metadata: { useInProduction: false }
+        },
+        dpla: { metadata: { useInProduction: false }, topics: "" },
+        ebsco_api_a9h: { metadata: { useInProduction: false }, toUse: [] },
+        primo_article_searches: {
+          metadata: { useInProduction: false },
+          toUse: []
+        },
+        primo_book_searches: {
+          metadata: { useInProduction: false },
+          toUse: []
+        },
+        primo_quick_search: { metadata: { useInProduction: false } },
+        weblinks_block: { metadata: { useInProduction: false } }
+      },
       cacheNewSearch_Ebsco: {
         fulltext: false,
         daterange: false,
@@ -463,28 +490,7 @@ export default {
         precision: "",
         value: "",
         fulltext: ""
-      },
-
-      dataStore: {
-        name: "",
-        citation_styles: {
-          metadata: {
-            useInProduction: false,
-            fullWidth: false
-          }
-        },
-        databases: {
-          metadata: { useInProduction: false }
-        },
-        dpla: { metadata: { useInProduction: false }, topics: "" },
-        ebsco_api_a9h: { metadata: { useInProduction: false } },
-        primo_article_searches: { metadata: { useInProduction: false } },
-        primo_book_searches: { metadata: { useInProduction: false } },
-        primo_quick_search: { metadata: { useInProduction: false } },
-        weblinks_block: { metadata: { useInProduction: false } }
-      },
-      ref: firebase.firestore().collection("Cheatsheets"), //name of the collection in firestore that contains all your real data
-      ref2: firebase.firestore().collection("CitationStylesRepository")
+      }
     };
   },
   created() {
@@ -495,25 +501,61 @@ export default {
       this.getCached_Ebsco(),
       this.getCached_PrimoBooks(),
       this.getCached_PrimoArticles(),
-      this.citationStylesWanted(),
-      this.getSingleCheatsheet()
-    ])
-      .then(() => {
-        console.log("Ey there friend");
-        this.getSingleCheatsheet();
-      })
-      .then(() => {});
+      this.citationStylesWanted()
+    ]).then(() => this.getSingleCheatsheet());
   },
   methods: {
+    lodashThings: function(controllerName, otherArray) {
+      //below iterates over the Controller objects and, using lodash, if the object.name is included in Firestore then change its selected (i.selected) to true
+
+      controllerName.forEach(i => {
+        if (_.includes(otherArray, i.id)) {
+          i.selected = true;
+        } else {
+          // console.log(i.name, "false");
+        }
+        
+      });
+    },
     getSingleCheatsheet: function() {
       this.ref
         .doc(this.key)
         .get()
         .then(doc => {
           if (doc.exists) {
-            // console.log("Document data:", doc.data());
             console.log("here");
-            this.cheatsheetData = doc.data();
+            this.dataStore = doc.data();
+            if (
+              this.dataStore.ebsco_api_a9h &&
+              this.dataStore.ebsco_api_a9h.toUse.length > 0
+            ) {
+              console.log("ebsco!");
+              this.lodashThings(
+                this.ebscoCachedSearchesController,
+                this.dataStore.ebsco_api_a9h.toUse
+              );
+            }
+            if (
+              this.dataStore.primo_article_searches &&
+              this.dataStore.primo_article_searches.toUse.length > 0
+            ) {
+              console.log("primo articles!");
+               this.lodashThings(
+                this.primoArticleSearchesController,
+                this.dataStore.primo_article_searches.toUse
+              );
+            }
+            if (
+              this.dataStore.primo_book_searches &&
+              this.dataStore.primo_book_searches.toUse.length > 0
+            ) {
+              console.log("primo books");
+               this.lodashThings(
+                this.primoBookSearchesController,
+                this.dataStore.primo_book_searches.toUse
+              );
+            }
+
             return true;
           } else {
             // doc.data() will be undefined in this case
@@ -522,7 +564,7 @@ export default {
           }
         })
         .catch(function(error) {
-          console.log("Error getting document:", error);
+          console.log("Error:", error);
         });
     },
     getCached_Ebsco() {
@@ -535,7 +577,7 @@ export default {
             // doc.data().searchTerm
             let rObj = {};
             rObj.name = doc.data().searchTerm;
-             rObj.id = doc.id;
+            rObj.id = doc.id;
             rObj.selected = false;
             this.ebscoCachedSearchesController.push(rObj);
           });
@@ -553,7 +595,7 @@ export default {
             // console.log(doc.data());
             let rObj = {};
             rObj.name = doc.data().searchTerm;
-             rObj.id = doc.id;
+            rObj.id = doc.id;
             rObj.selected = false;
             this.primoBookSearchesController.push(rObj);
           });
@@ -572,7 +614,7 @@ export default {
             // console.log(doc.data());
             let rObj = {};
             rObj.name = doc.data().searchTerm;
-             rObj.id = doc.id;
+            rObj.id = doc.id;
             rObj.selected = false;
             this.primoArticleSearchesController.push(rObj);
           });
@@ -590,7 +632,6 @@ export default {
       const daterange = optionsObject.daterange;
       if (target == "primo-book-search") {
         runCache(
-        console.log("cacheSearch -> Cache", Cache)
           `${urlBase}/cache-primo-book-search/${field}/${precision}/${value}`
         );
       }
