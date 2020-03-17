@@ -525,6 +525,17 @@ export default {
           if (doc.exists) {
             console.log("here");
             this.dataStore = doc.data();
+            if (this.dataStore.citation_styles && this.dataStore.citation_styles.toUse.length > 0){
+              console.log('yooooo')
+                this.citationStylesController.forEach(i => {
+        if (_.includes(this.dataStore.citation_styles.toUse, i.name)) {
+          i.selected = true;
+        } else {
+          // console.log(i.name, "false");
+        }
+        
+      });
+            }
             if (
               this.dataStore.ebsco_api_a9h &&
               this.dataStore.ebsco_api_a9h.toUse.length > 0
