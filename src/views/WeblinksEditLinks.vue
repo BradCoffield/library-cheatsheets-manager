@@ -77,7 +77,6 @@ export default {
         snapshot.forEach(doc => {
           this.existingCheatsheets.push(doc.id);
         });
-        console.log(this.existingCheatsheets);
       })
       .then(() => {
         this.existingCheatsheetsController = this.existingCheatsheets.map(
@@ -107,7 +106,10 @@ export default {
               url: doc.data().url,
               AssociatedSubjects: doc.data().AssociatedSubjects
             };
-            this.lodashThings(this.existingCheatsheetsController, this.data.AssociatedSubjects);
+            this.lodashThings(
+              this.existingCheatsheetsController,
+              this.data.AssociatedSubjects
+            );
           });
       })
       .then(() => {
@@ -138,14 +140,19 @@ export default {
       });
     },
     submitNewWeblink() {
-      let key = shortid.generate();
-      console.log(key);
+      this.data.AssociatedSubjects.length = 0;
+      console.log(this.data.AssociatedSubjects)
       this.existingCheatsheetsController.forEach(q => {
         if (q.selected === true) {
-          this.addWeblink.AssociatedSubjects.push(q.name);
+          this.data.AssociatedSubjects.push(q.name);
         }
       });
-      this.ref2.doc(key).set(this.data, { merge: true });
+      let deDupedArray = _.uniq(this.data.AssociatedSubjects);
+      console.log(deDupedArray);
+
+      this.data.AssociatedSubjects = deDupedArray;
+      console.log(this.data.AssociatedSubjects);
+      this.ref2.doc(this.key).set(this.data, { merge: true });
     }
   }
 };
