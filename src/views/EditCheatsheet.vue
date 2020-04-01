@@ -699,6 +699,7 @@ export default {
       let self = this;
 
       if (targetArray == "ebscoCachedSearchesController") {
+        self.dataStore.ebsco_api_a9h.toUse.length = 0;
         self.ebscoCachedSearchesController.forEach(function(i) {
           if (i.selected == true) {
             self.dataStore.ebsco_api_a9h.toUse.push(i.id);
