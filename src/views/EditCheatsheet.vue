@@ -707,6 +707,7 @@ export default {
         });
       }
       if (targetArray == "primoArticleSearchesController") {
+         self.dataStore.primo_article_searches.toUse.length = 0;
         self.primoArticleSearchesController.forEach(function(i) {
           if (i.selected == true) {
             self.dataStore.primo_article_searches.toUse.push(i.id);
@@ -714,6 +715,7 @@ export default {
         });
       }
       if (targetArray == "primoBookSearchesController") {
+         self.dataStore.primo_book_searches.toUse.length = 0;
         self.primoBookSearchesController.forEach(function(i) {
           if (i.selected == true) {
             self.dataStore.primo_book_searches.toUse.push(i.id);
@@ -721,6 +723,7 @@ export default {
         });
       }
       if (targetArray == "citationStylesController") {
+         self.dataStore.citation_styles.toUse.length = 0;
         self.citationStylesController.forEach(function(i) {
           if (i.selected == true) {
             self.dataStore.citation_styles.toUse.push(i.name);
