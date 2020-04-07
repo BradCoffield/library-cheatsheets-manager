@@ -514,7 +514,6 @@ export default {
         } else {
           // console.log(i.name, "false");
         }
-        
       });
     },
     getSingleCheatsheet: function() {
@@ -525,16 +524,18 @@ export default {
           if (doc.exists) {
             console.log("here");
             this.dataStore = doc.data();
-            if (this.dataStore.citation_styles && this.dataStore.citation_styles.toUse.length > 0){
-              console.log('yooooo')
-                this.citationStylesController.forEach(i => {
-        if (_.includes(this.dataStore.citation_styles.toUse, i.name)) {
-          i.selected = true;
-        } else {
-          // console.log(i.name, "false");
-        }
-        
-      });
+            if (
+              this.dataStore.citation_styles &&
+              this.dataStore.citation_styles.toUse.length > 0
+            ) {
+              console.log("yooooo");
+              this.citationStylesController.forEach(i => {
+                if (_.includes(this.dataStore.citation_styles.toUse, i.name)) {
+                  i.selected = true;
+                } else {
+                  // console.log(i.name, "false");
+                }
+              });
             }
             if (
               this.dataStore.ebsco_api_a9h &&
@@ -551,7 +552,7 @@ export default {
               this.dataStore.primo_article_searches.toUse.length > 0
             ) {
               console.log("primo articles!");
-               this.lodashThings(
+              this.lodashThings(
                 this.primoArticleSearchesController,
                 this.dataStore.primo_article_searches.toUse
               );
@@ -561,7 +562,7 @@ export default {
               this.dataStore.primo_book_searches.toUse.length > 0
             ) {
               console.log("primo books");
-               this.lodashThings(
+              this.lodashThings(
                 this.primoBookSearchesController,
                 this.dataStore.primo_book_searches.toUse
               );
@@ -693,8 +694,49 @@ export default {
     goHome() {
       router.push("/");
     },
+    iteratorForPrep: function(targetArray) {
+      console.log(targetArray);
+      let self = this;
+
+      if (targetArray == "ebscoCachedSearchesController") {
+        self.dataStore.ebsco_api_a9h.toUse.length = 0;
+        self.ebscoCachedSearchesController.forEach(function(i) {
+          if (i.selected == true) {
+            self.dataStore.ebsco_api_a9h.toUse.push(i.id);
+          }
+        });
+      }
+      if (targetArray == "primoArticleSearchesController") {
+         self.dataStore.primo_article_searches.toUse.length = 0;
+        self.primoArticleSearchesController.forEach(function(i) {
+          if (i.selected == true) {
+            self.dataStore.primo_article_searches.toUse.push(i.id);
+          }
+        });
+      }
+      if (targetArray == "primoBookSearchesController") {
+         self.dataStore.primo_book_searches.toUse.length = 0;
+        self.primoBookSearchesController.forEach(function(i) {
+          if (i.selected == true) {
+            self.dataStore.primo_book_searches.toUse.push(i.id);
+          }
+        });
+      }
+      if (targetArray == "citationStylesController") {
+         self.dataStore.citation_styles.toUse.length = 0;
+        self.citationStylesController.forEach(function(i) {
+          if (i.selected == true) {
+            self.dataStore.citation_styles.toUse.push(i.name);
+          }
+        });
+      }
+    },
     sendUpdate(evt) {
       evt.preventDefault();
+      this.iteratorForPrep("ebscoCachedSearchesController");
+      this.iteratorForPrep("primoArticleSearchesController");
+      this.iteratorForPrep("primoBookSearchesController");
+      this.iteratorForPrep("citationStylesController");
       this.ref.doc(this.dataStore.name).set(this.dataStore, { merge: true });
     }
   }

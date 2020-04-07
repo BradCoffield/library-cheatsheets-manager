@@ -24,11 +24,20 @@
         <b-table-column field="displayName" label="Name" searchable="true">
           {{ props.row.displayName }}
         </b-table-column>
-        <b-table-column field="url" label="URL"searchable="true">
+        <b-table-column field="url" label="URL" searchable="true">
           {{ props.row.url }}
         </b-table-column>
-        <b-table-column field="AssociatedSubjects" label="Associated Subjects" searchable="true">
+        <b-table-column
+          field="AssociatedSubjects"
+          label="Associated Subjects"
+          searchable="true"
+        >
           {{ props.row.AssociatedSubjects }}
+        </b-table-column>
+        <b-table-column field="editButton" label="Edit Entry">
+          <button class="button is-info" @click.stop="editData(props.row.key)">
+            Edit
+          </button>
         </b-table-column>
         <b-table-column field="editButton" label="Delete Link">
           <b-button
@@ -57,7 +66,7 @@
 </template>
 <script>
 import firebase from "firebase";
-// import router from "../router";
+import router from "../router";
 // import dbData from "../Firebase";
 
 export default {
@@ -101,6 +110,12 @@ export default {
   methods: {
     toggle(row) {
       this.$refs.table.toggleDetails(row);
+    },
+    editData(id) {
+      router.push({
+        name: "edit-weblink",
+        params: { id: id }
+      });
     },
     deleteLink(id) {
       this.ref2

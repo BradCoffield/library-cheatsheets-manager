@@ -15,6 +15,7 @@ import CachedSearchesList_PrimoBooks from "./views/CachedSearchesList_PrimoBooks
 import CachedSearchesList_PrimoArticles from "./views/CachedSearchesList_PrimoArticles.vue";
 import WeblinksAddLinks from "./views/WeblinksAddLinks.vue";
 import WeblinksViewList from "./views/WeblinksViewList.vue";
+import WeblinksEditLink from "./views/WeblinksEditLinks.vue";
 
 Vue.use(Router);
 
@@ -95,6 +96,14 @@ export default new Router({
       path: "/add-weblink",
       name: "add-weblink",
       component: WeblinksAddLinks,
+      meta: {
+        protected: true
+      }
+    },
+    {
+      path: "/edit-weblink",
+      name: "edit-weblink",
+      component: WeblinksEditLink,
       meta: {
         protected: true
       }

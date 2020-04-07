@@ -135,23 +135,23 @@ export default {
 //     }
 //   }
 // }
-@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap");
-h1,
-h2,
-h3,
-h4 {
-  font-family: "Raleway", sans-serif;
-}
-p,
-span,
-tbody,
-.th-wrap,
-a,
-.button,
-.label {
-  font-family: "Raleway", sans-serif;
-}
+// @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+// @import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap");
+// h1,
+// h2,
+// h3,
+// h4 {
+//   font-family: "Raleway", sans-serif;
+// }
+// p,
+// span,
+// tbody,
+// .th-wrap,
+// a,
+// .button,
+// .label {
+//   font-family: "Raleway", sans-serif;
+// }
 .container {
   margin-top: 3rem !important;
 }
