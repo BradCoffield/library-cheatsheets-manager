@@ -4,27 +4,17 @@
 
     <div class="block">
       <b-field label="Name">
-        <b-input
-          v-model="addWeblink.displayName"
-          type="text"
-          required
-        ></b-input>
+        <b-input v-model="addWeblink.displayName" type="text" required></b-input>
       </b-field>
       <b-field label="URL">
         <!-- <b-input placeholder="URL" type="url"></b-input> -->
         <b-input v-model="addWeblink.url" type="url"></b-input>
       </b-field>
       <b-field label="Description">
-        <b-input
-          v-model="addWeblink.description"
-          maxlength="500"
-          type="textarea"
-        ></b-input>
+        <b-input v-model="addWeblink.description" maxlength="500" type="textarea"></b-input>
       </b-field>
 
-      <b-field
-        label="Existing Cheatsheets - Select to associate with this weblink"
-      >
+      <b-field label="Existing Cheatsheets - Select to associate with this weblink">
         <ul v-if="existingCheatsheetsController.length > 0">
           <li
             style="display:inline"
@@ -38,22 +28,18 @@
                 'is-text': !item.selected
               }"
               @click="item.selected = !item.selected"
-            >
-              {{ item.name }}
-            </button>
+            >{{ item.name }}</button>
           </li>
         </ul>
       </b-field>
     </div>
 
-    <b-button @click="submitNewWeblink()" type="is-primary" outlined
-      >Submit</b-button
-    >
+    <b-button @click="submitNewWeblink()" type="is-primary" outlined>Submit</b-button>
   </div>
 </template>
 <script>
 import firebase from "firebase";
-// import router from "../router";
+import router from "../router";
 import shortid from "shortid";
 export default {
   data() {
@@ -105,7 +91,12 @@ export default {
           this.addWeblink.AssociatedSubjects.push(q.name);
         }
       });
-      this.refWeblinks.doc(key).set(this.addWeblink, { merge: true });
+      this.refWeblinks
+        .doc(key)
+        .set(this.addWeblink, { merge: true })
+        .then(() => {
+          this.$router.go();
+        });
     }
   }
 };
