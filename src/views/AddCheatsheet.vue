@@ -8,20 +8,18 @@
 
       <h2 class="title is-3">Available Blocks</h2>
 
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Citation Styles</h3>
           <h4 class="title is-4">Metadata</h4>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.citation_styles.metadata.useInProduction"
-            ></b-switch>
+            <b-switch v-model="dataStore.citation_styles.metadata.useInProduction"></b-switch>
           </b-field>
           <!-- <b-field label="Full Width?">
             <b-switch
               v-model="dataStore.citation_styles.metadata.fullWidth"
             ></b-switch>
-          </b-field> -->
+          </b-field>-->
           <!-- ***************************************************************************************************** -->
           <b-field label="Available Citation Styles">
             <ul v-if="citationStylesController.length > 0">
@@ -37,32 +35,26 @@
                     'is-text': !item.selected
                   }"
                   @click="item.selected = !item.selected"
-                >
-                  {{ item.name }}
-                </button>
+                >{{ item.name }}</button>
               </li>
             </ul>
           </b-field>
         </div>
       </div>
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Databases</h3>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.databases.metadata.useInProduction"
-            ></b-switch>
+            <b-switch v-model="dataStore.databases.metadata.useInProduction"></b-switch>
           </b-field>
         </div>
       </div>
 
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Digital Public Library of America</h3>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.dpla.metadata.useInProduction"
-            ></b-switch>
+            <b-switch v-model="dataStore.dpla.metadata.useInProduction"></b-switch>
           </b-field>
           <b-field label="DPLA Search Term(s)">
             <b-input v-model="dataStore.dpla.topics"></b-input>
@@ -70,13 +62,11 @@
         </div>
       </div>
 
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">EBSCO API - Academic Search Complete</h3>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.ebsco_api_a9h.metadata.useInProduction"
-            ></b-switch>
+            <b-switch v-model="dataStore.ebsco_api_a9h.metadata.useInProduction"></b-switch>
           </b-field>
           <b-field label="Searches Currently Used">
             This will be checkboxes with the searches currently used on this
@@ -100,44 +90,16 @@
                     'is-text': !item.selected
                   }"
                   @click="item.selected = !item.selected"
-                >
-                  {{ item.name }}
-                </button>
+                >{{ item.name }}</button>
               </li>
             </ul>
           </b-field>
 
           <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 -->
-
-          <b-field label="Cache a new search"> </b-field>
-          <div class="block">
-            <b-field label="Search term(s)">
-              <b-input v-model="cacheNewSearch_Ebsco.value"></b-input>
-            </b-field>
-
-            <b-checkbox v-model="cacheNewSearch_Ebsco.fulltext">
-              Full-text only
-            </b-checkbox>
-
-            <b-checkbox v-model="cacheNewSearch_Ebsco.daterange">
-              Recent only
-            </b-checkbox>
-
-            <b-checkbox v-model="cacheNewSearch_Ebsco.scholarly">
-              Scholarly only
-            </b-checkbox>
-          </div>
-          <!-- <b-button @click="">Click Me</b-button> -->
-          <b-button
-            @click="cacheSearch('ebsco-search', cacheNewSearch_Ebsco)"
-            type="is-primary"
-            outlined
-            >Cache New Search</b-button
-          >
         </div>
       </div>
       <!-- -----------------------------------------primo article search----------------------------------------------->
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Primo Article Search</h3>
           <b-field label="Use in production?">
@@ -162,106 +124,18 @@
                     'is-text': !item.selected
                   }"
                   @click="item.selected = !item.selected"
-                >
-                  {{ item.name }}
-                </button>
+                >{{ item.name }}</button>
               </li>
             </ul>
           </b-field>
-
-          <b-field label="Cache a new search"> </b-field>
-          <div class="block">
-            <b-field label="Search term(s)">
-              <b-input v-model="cacheNewSearch_PrimoArticles.value"></b-input>
-            </b-field>
-
-            <div class="block">
-              Precision:
-
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.precision"
-                name="name1"
-                native-value="exact"
-              >
-                Exact
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.precision"
-                name="name1"
-                native-value="begins_with"
-              >
-                Begins with
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.precision"
-                name="name1"
-                native-value="contains"
-              >
-                Contains
-              </b-radio>
-            </div>
-
-            <!-- ********************* -->
-
-            <div class="block">
-              Field:
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.field"
-                name="name"
-                native-value="any"
-              >
-                Any
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.field"
-                name="name"
-                native-value="title"
-              >
-                Title
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.field"
-                name="name"
-                native-value="creator"
-              >
-                Creator (author)
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoArticles.field"
-                name="name"
-                native-value="sub"
-              >
-                Subject
-              </b-radio>
-            </div>
-            <div class="block">
-              <b-checkbox v-model="cacheNewSearch_PrimoArticles.fulltext">
-                Full-text only
-              </b-checkbox>
-            </div>
-            <!-- <b-button @click="">Click Me</b-button> -->
-            <b-button
-              @click="
-                cacheSearch(
-                  'primo-article-search',
-                  cacheNewSearch_PrimoArticles
-                )
-              "
-              type="is-primary"
-              outlined
-              >Cache New Search</b-button
-            >
-          </div>
         </div>
       </div>
 
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Primo Book Search</h3>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.primo_book_searches.metadata.useInProduction"
-            ></b-switch>
+            <b-switch v-model="dataStore.primo_book_searches.metadata.useInProduction"></b-switch>
           </b-field>
 
           <b-field label="Available Cached Searches - Select One">
@@ -278,113 +152,27 @@
                     'is-text': !item.selected
                   }"
                   @click="item.selected = !item.selected"
-                >
-                  {{ item.name }}
-                </button>
+                >{{ item.name }}</button>
               </li>
             </ul>
           </b-field>
-
-          <!-- <b-field label="Cache a new search">
-            ttthis will be an input with a run button. will talk to proxy server
-            run the new search and refresh the above area so its then available
-            to choose for this form.
-          </b-field> -->
-
-          <b-field label="Cache a new search"> </b-field>
-          <div class="block">
-            <b-field label="Search term(s)">
-              <b-input v-model="cacheNewSearch_PrimoBooks.value"></b-input>
-            </b-field>
-
-            <div class="block">
-              Precision:
-
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.precision"
-                name="name1"
-                native-value="exact"
-              >
-                Exact
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.precision"
-                name="name1"
-                native-value="begins_with"
-              >
-                Begins with
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.precision"
-                name="name1"
-                native-value="contains"
-              >
-                Contains
-              </b-radio>
-            </div>
-
-            <!-- ********************* -->
-
-            <div class="block">
-              Field:
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.field"
-                name="name"
-                native-value="any"
-              >
-                Any
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.field"
-                name="name"
-                native-value="title"
-              >
-                Title
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.field"
-                name="name"
-                native-value="creator"
-              >
-                Creator (author)
-              </b-radio>
-              <b-radio
-                v-model="cacheNewSearch_PrimoBooks.field"
-                name="name"
-                native-value="sub"
-              >
-                Subject
-              </b-radio>
-            </div>
-          </div>
-          <!-- <b-button @click="">Click Me</b-button> -->
-          <b-button
-            @click="cacheSearch('primo-book-search', cacheNewSearch_PrimoBooks)"
-            type="is-primary"
-            outlined
-            >Cache New Search</b-button
-          >
         </div>
       </div>
 
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Primo Quick Search</h3>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.primo_quick_search.metadata.useInProduction"
-            ></b-switch
-          ></b-field>
+            <b-switch v-model="dataStore.primo_quick_search.metadata.useInProduction"></b-switch>
+          </b-field>
         </div>
       </div>
-      <div class="">
+      <div class>
         <div class="block-block">
           <h3 class="title is-3">Weblinks</h3>
           <b-field label="Use in production?">
-            <b-switch
-              v-model="dataStore.weblinks_block.metadata.useInProduction"
-            ></b-switch
-          ></b-field>
+            <b-switch v-model="dataStore.weblinks_block.metadata.useInProduction"></b-switch>
+          </b-field>
         </div>
       </div>
       <!-- 
@@ -416,7 +204,7 @@
            
           </article>
         </div>
-      </div> -->
+      </div>-->
 
       <div class="form-buttons">
         <button @click="goHome" class="button is-danger">
