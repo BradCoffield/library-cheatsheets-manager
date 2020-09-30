@@ -1,4 +1,4 @@
-# vue-firestore-crud-starter
+# library-cheatsheets-manager
 
 ## Project setup
 ```
